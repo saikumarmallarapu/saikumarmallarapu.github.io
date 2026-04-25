@@ -2,7 +2,7 @@
 
 Personal portfolio website built with HTML & CSS.
 
-🌐 Live: https://saikumar-thaagam.github.io
+🌐 Live: https://saikumar-pydev.github.io
 
 ## About
 Python Django Developer | Backend Engineer | REST API Specialist
