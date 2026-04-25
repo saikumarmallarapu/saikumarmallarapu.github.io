@@ -1,2 +1,11 @@
-# saikumar-pydev.github.io
-Personal portfolio website of Saikumar Mallarapu — Python Django Developer, Backend Engineer &amp; REST API Specialist based in Chennai, India.
+# Saikumar Mallarapu — Portfolio
+
+Personal portfolio website built with HTML & CSS.
+
+🌐 Live: https://saikumar-thaagam.github.io
+
+## About
+Python Django Developer | Backend Engineer | REST API Specialist
+
+📧 saikumar.pydev@gmail.com
+🔗 linkedin.com/in/saikumarmallarapu
