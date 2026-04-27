@@ -39,7 +39,7 @@ nav{
   height:60px;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 40px;
-  background:rgba(248,250,252,0.85);
+  background:rgba(248,250,252,0.92);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(226,232,240,0.8);
@@ -48,6 +48,7 @@ nav{
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:13px;font-weight:500;color:var(--secondary);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:12px}
 .nav-cta{
   font-size:13px;font-weight:600;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
@@ -65,6 +66,8 @@ nav{
   background:none;border:none;cursor:pointer;
   padding:6px;border-radius:8px;
   transition:background .2s;
+  z-index:201;
+  position:relative;
 }
 .hamburger:hover{background:var(--accent-bg)}
 .hamburger span{
@@ -79,21 +82,41 @@ nav{
 /* ── MOBILE MENU ── */
 .mobile-menu{
   display:none;
-  position:fixed;top:60px;left:0;right:0;z-index:199;
-  background:rgba(248,250,252,0.97);
+  position:fixed;
+  top:60px;left:0;right:0;
+  z-index:199;
+  background:rgba(248,250,252,0.98);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
-  padding:16px 20px;
+  padding:12px 16px 16px;
   flex-direction:column;gap:4px;
+  box-shadow:0 8px 24px rgba(15,23,42,0.08);
+  /* animate in */
+  transform:translateY(-8px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
 }
-.mobile-menu.open{display:flex}
+.mobile-menu.open{
+  display:flex;
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
 .mobile-menu a{
   font-size:15px;font-weight:500;color:var(--secondary);
-  text-decoration:none;padding:10px 12px;border-radius:10px;
+  text-decoration:none;padding:11px 14px;border-radius:10px;
   transition:background .2s,color .2s;
 }
 .mobile-menu a:hover{background:var(--accent-bg);color:var(--accent)}
+.mobile-menu-overlay{
+  display:none;
+  position:fixed;inset:0;
+  z-index:198;
+  background:transparent;
+}
+.mobile-menu-overlay.open{display:block}
 
 /* ── HERO ── */
 .hero{
@@ -346,71 +369,86 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 .fade{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
 .fade.in{opacity:1;transform:translateY(0)}
 
-/* ── MODAL ── */
+/* ══════════════════════════════════════════
+   RESUME MODAL — FULLSCREEN (FIXED)
+   ══════════════════════════════════════════ */
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.65);
   z-index:999;
   align-items:center;
   justify-content:center;
-  padding:16px;
+  padding:0;           /* no padding — fullscreen */
 }
+.modal.open{
+  display:flex;
+}
+
+/* Desktop: large centered panel */
 .modal-content{
-  width:90%;
-  max-width:800px;
-  max-height:90vh;
+  width:min(900px, 94vw);
+  height:92vh;
   background:#fff;
   border-radius:16px;
   overflow:hidden;
   display:flex;
   flex-direction:column;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  box-shadow:0 24px 80px rgba(0,0,0,.30);
 }
+
 .modal-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px 18px;
+  padding:14px 20px;
   border-bottom:1px solid #e2e8f0;
   flex-shrink:0;
+  background:#fff;
 }
 .modal-header h3{
   font-size:16px;font-weight:700;color:var(--text);
 }
 .close-btn{
   display:flex;align-items:center;justify-content:center;
-  width:32px;height:32px;
+  width:34px;height:34px;
   background:none;border:1.5px solid var(--border);
   border-radius:8px;cursor:pointer;
   font-size:20px;color:var(--secondary);
   line-height:1;font-family:inherit;
   transition:all .2s;
+  flex-shrink:0;
 }
 .close-btn:hover{background:var(--bg);border-color:var(--accent);color:var(--accent)}
+
+/* iframe fills all remaining space */
 .resume-frame{
   width:100%;
-  height:min(800px,70vh);
-  border:none;
   flex:1;
+  border:none;
+  display:block;
+  min-height:0;   /* flex fix */
 }
+
 .download-btn{
   display:block;
   text-align:center;
-  padding:12px;
+  padding:13px;
   background:var(--accent);
   color:#fff;
   text-decoration:none;
   font-weight:600;
+  font-size:14px;
   flex-shrink:0;
   transition:opacity .2s;
+  letter-spacing:.2px;
 }
 .download-btn:hover{opacity:.9}
 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
-  nav{padding:0 20px}
+  nav{padding:0 16px}
   .nav-links{display:none}
   .hamburger{display:flex}
   .wrap{padding:0 18px}
@@ -423,6 +461,17 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   .stats{flex-direction:row;flex-wrap:wrap}
   .stat{flex:1 1 calc(50% - 1px);min-width:0}
   .hero h1{letter-spacing:-2px}
+
+  /* Mobile modal — true fullscreen */
+  .modal-content{
+    width:100%;
+    height:100%;
+    border-radius:0;
+  }
+  /* Ensure iframe takes full height on mobile */
+  .resume-frame{
+    height:100%;
+  }
 }
 </style>
 </head>
@@ -438,25 +487,28 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <!-- FIX #11: Hamburger for mobile -->
-  <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-    <span></span><span></span><span></span>
-  </button>
-  <a href="mailto:saikumar.pydev@gmail.com" class="nav-cta">Hire Me</a>
+  <div class="nav-right">
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="mailto:saikumar.pydev@gmail.com" class="nav-cta">Hire Me</a>
+  </div>
 </nav>
 
-<!-- FIX #11: Mobile drawer -->
+<!-- Mobile overlay (closes menu on outside click) -->
+<div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- Mobile drawer -->
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#skills" onclick="closeMobileMenu()">Skills</a>
-  <a href="#experience" onclick="closeMobileMenu()">Experience</a>
-  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
-  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="#about"        onclick="closeMobileMenu()">About</a>
+  <a href="#skills"       onclick="closeMobileMenu()">Skills</a>
+  <a href="#experience"   onclick="closeMobileMenu()">Experience</a>
+  <a href="#projects"     onclick="closeMobileMenu()">Projects</a>
+  <a href="#contact"      onclick="closeMobileMenu()">Contact</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <!-- FIX #13: fetchpriority | FIX #14: object-position | FIX #3: descriptive alt -->
   <img src="office-look.jpg"
        alt="Saikumar Mallarapu — Python Django Developer"
        class="hero-photo"
@@ -470,9 +522,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   <p class="hero-loc">Backend Engineer &nbsp;&middot;&nbsp; REST API Specialist &nbsp;&middot;&nbsp; Chennai, India</p>
   <div class="hero-btns">
     <a href="mailto:saikumar.pydev@gmail.com" class="btn-p">Hire Me</a>
-    <!-- FIX #10: rel on external links -->
     <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="btn-s">View LinkedIn</a>
-    <!-- FIX #1: button instead of href="#" to prevent page jump -->
     <button class="btn-s" onclick="openResume()" aria-haspopup="dialog">View Resume</button>
   </div>
   <div class="stats">
@@ -736,95 +786,94 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 
 </div>
 
-<!-- FIX #16: Dynamic copyright year -->
 <footer>
   <span id="footerYear"></span> Saikumar Mallarapu &nbsp;&middot;&nbsp; Python Django Developer &nbsp;&middot;&nbsp; Chennai, India
 </footer>
 
-<!-- RESUME MODAL -->
-<!-- FIX #4: role="dialog", aria-modal, aria-labelledby -->
+<!-- ══ RESUME MODAL ══ -->
 <div id="resumeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-content">
     <div class="modal-header">
       <h3 id="modalTitle">My Resume</h3>
-      <!-- FIX #5: proper <button> element for close -->
       <button class="close-btn" id="closeBtn" onclick="closeResume()" aria-label="Close resume modal">&times;</button>
     </div>
-    <!-- FIX #3 (perf): src="" on load, set on open | FIX #8: title attribute -->
     <iframe id="resumeFrame" src="" class="resume-frame" title="Saikumar Mallarapu Resume PDF"></iframe>
-    <a href="Saikumar_Mallarapu_Django_Developer.pdf" download class="download-btn">Download Resume</a>
+    <a href="Saikumar_Mallarapu_Django_Developer.pdf" download class="download-btn">⬇ Download Resume</a>
   </div>
 </div>
 
 <script>
-  // FIX #16: Dynamic footer year
+  /* ── Footer year ── */
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  // ── RESUME MODAL ──
+  /* ══ RESUME MODAL ══ */
   var resumeLoaded = false;
-  var lastFocused = null;
+  var lastFocused  = null;
 
   function openResume() {
     lastFocused = document.activeElement;
-    // FIX #3 (performance): load PDF only on first open
     if (!resumeLoaded) {
       document.getElementById('resumeFrame').src = 'Saikumar_Mallarapu_Django_Developer.pdf';
       resumeLoaded = true;
     }
-    document.getElementById('resumeModal').style.display = 'flex';
-    // FIX #6: Move focus inside modal on open
+    var modal = document.getElementById('resumeModal');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';   /* prevent background scroll */
     document.getElementById('closeBtn').focus();
   }
 
   function closeResume() {
-    document.getElementById('resumeModal').style.display = 'none';
-    // FIX #6: Return focus to trigger element
+    document.getElementById('resumeModal').classList.remove('open');
+    document.body.style.overflow = '';
     if (lastFocused) lastFocused.focus();
   }
 
-  // FIX #2: addEventListener instead of window.onclick
-  window.addEventListener('click', function(event) {
-    var modal = document.getElementById('resumeModal');
-    if (event.target === modal) closeResume();
+  /* Click backdrop to close */
+  document.getElementById('resumeModal').addEventListener('click', function(e) {
+    if (e.target === this) closeResume();
   });
 
-  // FIX #7: Escape key closes modal
+  /* Escape key closes modal */
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      var modal = document.getElementById('resumeModal');
-      if (modal.style.display === 'flex') closeResume();
+    if (e.key === 'Escape' && document.getElementById('resumeModal').classList.contains('open')) {
+      closeResume();
     }
   });
 
-  // ── HAMBURGER MENU (FIX #11) ──
-  var hamburger = document.getElementById('hamburger');
-  var mobileMenu = document.getElementById('mobileMenu');
+  /* ══ HAMBURGER / MOBILE MENU ══ */
+  var hamburger   = document.getElementById('hamburger');
+  var mobileMenu  = document.getElementById('mobileMenu');
+  var overlay     = document.getElementById('mobileOverlay');
 
-  hamburger.addEventListener('click', function() {
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
     var isOpen = mobileMenu.classList.contains('open');
-    mobileMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', String(!isOpen));
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
   });
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    overlay.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+  }
 
   function closeMobileMenu() {
     mobileMenu.classList.remove('open');
+    overlay.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
   }
 
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-      closeMobileMenu();
-    }
-  });
-
-  // ── SCROLL ANIMATIONS ──
-  const obs = new IntersectionObserver(els => {
-    els.forEach(e => {
+  /* ── Scroll animations ── */
+  var obs = new IntersectionObserver(function(els) {
+    els.forEach(function(e) {
       if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
     });
   }, { threshold: .12 });
-  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+  document.querySelectorAll('.fade').forEach(function(el) { obs.observe(el); });
 </script>
 </body>
 </html>
