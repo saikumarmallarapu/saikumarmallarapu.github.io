@@ -58,6 +58,43 @@ nav{
 }
 .nav-cta:hover{opacity:.9;transform:translateY(-1px)}
 
+/* ── HAMBURGER ── */
+.hamburger{
+  display:none;
+  flex-direction:column;justify-content:center;gap:5px;
+  background:none;border:none;cursor:pointer;
+  padding:6px;border-radius:8px;
+  transition:background .2s;
+}
+.hamburger:hover{background:var(--accent-bg)}
+.hamburger span{
+  display:block;width:22px;height:2px;
+  background:var(--text);border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ── MOBILE MENU ── */
+.mobile-menu{
+  display:none;
+  position:fixed;top:60px;left:0;right:0;z-index:199;
+  background:rgba(248,250,252,0.97);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:16px 20px;
+  flex-direction:column;gap:4px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-size:15px;font-weight:500;color:var(--secondary);
+  text-decoration:none;padding:10px 12px;border-radius:10px;
+  transition:background .2s,color .2s;
+}
+.mobile-menu a:hover{background:var(--accent-bg);color:var(--accent)}
+
 /* ── HERO ── */
 .hero{
   min-height:100vh;
@@ -76,7 +113,9 @@ nav{
 }
 .hero-photo{
   width:112px;height:112px;
-  border-radius:50%;object-fit:cover;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center top;
   border:4px solid #fff;
   box-shadow:0 8px 32px rgba(15,23,42,.14);
   margin-bottom:20px;
@@ -137,6 +176,8 @@ nav{
   border:1.5px solid var(--border);
   transition:all .2s;
   box-shadow:var(--shadow);
+  cursor:pointer;
+  font-family:inherit;
 }
 .btn-s:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 
@@ -305,10 +346,73 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 .fade{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
 .fade.in{opacity:1;transform:translateY(0)}
 
+/* ── MODAL ── */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  z-index:999;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+.modal-content{
+  width:90%;
+  max-width:800px;
+  max-height:90vh;
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 18px;
+  border-bottom:1px solid #e2e8f0;
+  flex-shrink:0;
+}
+.modal-header h3{
+  font-size:16px;font-weight:700;color:var(--text);
+}
+.close-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;
+  background:none;border:1.5px solid var(--border);
+  border-radius:8px;cursor:pointer;
+  font-size:20px;color:var(--secondary);
+  line-height:1;font-family:inherit;
+  transition:all .2s;
+}
+.close-btn:hover{background:var(--bg);border-color:var(--accent);color:var(--accent)}
+.resume-frame{
+  width:100%;
+  height:min(500px,60vh);
+  border:none;
+  flex:1;
+}
+.download-btn{
+  display:block;
+  text-align:center;
+  padding:12px;
+  background:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  flex-shrink:0;
+  transition:opacity .2s;
+}
+.download-btn:hover{opacity:.9}
+
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links{display:none}
+  .hamburger{display:flex}
   .wrap{padding:0 18px}
   .sec{padding:72px 0}
   .g2,.pg{grid-template-columns:1fr}
@@ -324,7 +428,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 <body>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="Main navigation">
   <span class="nav-logo">Saikumar Mallarapu</span>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
@@ -333,14 +437,31 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <!-- FIX #11: Hamburger for mobile -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
   <a href="mailto:saikumar.pydev@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- FIX #11: Mobile drawer -->
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+  <a href="#experience" onclick="closeMobileMenu()">Experience</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <img src="office-look.jpg" alt="Saikumar Mallarapu" class="hero-photo">
+  <!-- FIX #13: fetchpriority | FIX #14: object-position | FIX #3: descriptive alt -->
+  <img src="office-look.jpg"
+       alt="Saikumar Mallarapu — Python Django Developer"
+       class="hero-photo"
+       fetchpriority="high">
   <div class="hero-badge">
-    <span class="dot"></span>
+    <span class="dot" aria-hidden="true"></span>
     Available for new opportunities
   </div>
   <h1><span>Saikumar</span> Mallarapu</h1>
@@ -348,7 +469,10 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   <p class="hero-loc">Backend Engineer &nbsp;&middot;&nbsp; REST API Specialist &nbsp;&middot;&nbsp; Chennai, India</p>
   <div class="hero-btns">
     <a href="mailto:saikumar.pydev@gmail.com" class="btn-p">Hire Me</a>
-    <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" class="btn-s">View LinkedIn</a>
+    <!-- FIX #10: rel on external links -->
+    <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="btn-s">View LinkedIn</a>
+    <!-- FIX #1: button instead of href="#" to prevent page jump -->
+    <button class="btn-s" onclick="openResume()" aria-haspopup="dialog">View Resume</button>
   </div>
   <div class="stats">
     <div class="stat"><div class="stat-n">1+</div><div class="stat-l">Years Experience</div></div>
@@ -367,28 +491,28 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   <p class="sec-sub">A backend developer focused on building production-grade Django systems with clean API architecture and scalable data modeling.</p>
   <div class="g2">
     <div class="card">
-      <div class="a-icon">&#128736;</div>
+      <div class="a-icon" aria-hidden="true">&#128736;</div>
       <div class="a-h">Currently at M7 Corporation</div>
       <p class="a-p">Working as a Python Django Developer since July 2025, building production systems across healthcare, NGO, and education domains.</p>
     </div>
     <div class="card">
-      <div class="a-icon">&#127979;</div>
+      <div class="a-icon" aria-hidden="true">&#127979;</div>
       <div class="a-h">Pursuing MCA</div>
       <p class="a-p">Master of Computer Applications at Shree Krishna Chaitanya Institute of Science and Technology, Nellore (2025 to 2027).</p>
     </div>
     <div class="card">
-      <div class="a-icon">&#128640;</div>
+      <div class="a-icon" aria-hidden="true">&#128640;</div>
       <div class="a-h">Founder — PSDiginex</div>
       <p class="a-p">Founded PSDiginex, providing Django-based software solutions to local stores and business owners across multiple domains.</p>
     </div>
     <div class="card">
-      <div class="a-icon">&#127942;</div>
+      <div class="a-icon" aria-hidden="true">&#127942;</div>
       <div class="a-h">NIELIT Certified</div>
       <p class="a-p">Certified Web Developer from NIELIT (Government of India), covering Frontend, Backend Development and Database systems. Grade B.</p>
     </div>
   </div>
 </section>
-  
+
 <!-- SKILLS -->
 <section class="sec fade" id="skills">
   <div class="sec-tag">Skills</div>
@@ -500,7 +624,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
       </div>
     </div>
     <div class="card pc">
-      <div class="pc-lbl">Education & Workforce</div>
+      <div class="pc-lbl">Education &amp; Workforce</div>
       <div class="pc-title">GCC Workforce Education and Park Management System</div>
       <div class="pc-desc">
         <ul>
@@ -550,7 +674,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   <h2 class="sec-h">Credentials</h2>
   <p class="sec-sub">Government-certified professional qualification.</p>
   <div class="card cert">
-    <div class="cert-ico">&#127942;</div>
+    <div class="cert-ico" aria-hidden="true">&#127942;</div>
     <div>
       <div class="cert-name">Certified Web Developer (Upskilling)</div>
       <div class="cert-iss">NIELIT — National Institute of Electronics and Information Technology, Government of India</div>
@@ -593,12 +717,12 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 <section class="sec fade" id="contact">
   <div class="card contact-box">
     <div class="sec-tag" style="text-align:center;margin-bottom:10px">Contact</div>
-    <div class="c-h">Let’s build something together</div>
+    <div class="c-h">Let's build something together</div>
     <div class="c-sub">Open to Django Developer and Python Backend roles.<br>Available for full-time positions and freelance projects.</div>
     <div class="c-btns">
       <a href="mailto:saikumar.pydev@gmail.com" class="c-btn p">Email Me</a>
-      <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" class="c-btn">LinkedIn</a>
-      <a href="https://github.com/saikumar-thaagam" target="_blank" class="c-btn">GitHub</a>
+      <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="c-btn">LinkedIn</a>
+      <a href="https://github.com/saikumar-thaagam" target="_blank" rel="noopener noreferrer" class="c-btn">GitHub</a>
     </div>
     <div class="locs">
       <span class="loc">Hyderabad</span>
@@ -611,11 +735,95 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 
 </div>
 
-<footer>2025 Saikumar Mallarapu &nbsp;&middot;&nbsp; Python Django Developer &nbsp;&middot;&nbsp; Chennai, India</footer>
+<!-- FIX #16: Dynamic copyright year -->
+<footer>
+  <span id="footerYear"></span> Saikumar Mallarapu &nbsp;&middot;&nbsp; Python Django Developer &nbsp;&middot;&nbsp; Chennai, India
+</footer>
+
+<!-- RESUME MODAL -->
+<!-- FIX #4: role="dialog", aria-modal, aria-labelledby -->
+<div id="resumeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">My Resume</h3>
+      <!-- FIX #5: proper <button> element for close -->
+      <button class="close-btn" id="closeBtn" onclick="closeResume()" aria-label="Close resume modal">&times;</button>
+    </div>
+    <!-- FIX #3 (perf): src="" on load, set on open | FIX #8: title attribute -->
+    <iframe id="resumeFrame" src="" class="resume-frame" title="Saikumar Mallarapu Resume PDF"></iframe>
+    <a href="Saikumar_Mallarapu_Django_Developer.pdf" download class="download-btn">Download Resume</a>
+  </div>
+</div>
 
 <script>
-const obs=new IntersectionObserver(els=>{els.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+  // FIX #16: Dynamic footer year
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+  // ── RESUME MODAL ──
+  var resumeLoaded = false;
+  var lastFocused = null;
+
+  function openResume() {
+    lastFocused = document.activeElement;
+    // FIX #3 (performance): load PDF only on first open
+    if (!resumeLoaded) {
+      document.getElementById('resumeFrame').src = 'resume1.pdf';
+      resumeLoaded = true;
+    }
+    document.getElementById('resumeModal').style.display = 'flex';
+    // FIX #6: Move focus inside modal on open
+    document.getElementById('closeBtn').focus();
+  }
+
+  function closeResume() {
+    document.getElementById('resumeModal').style.display = 'none';
+    // FIX #6: Return focus to trigger element
+    if (lastFocused) lastFocused.focus();
+  }
+
+  // FIX #2: addEventListener instead of window.onclick
+  window.addEventListener('click', function(event) {
+    var modal = document.getElementById('resumeModal');
+    if (event.target === modal) closeResume();
+  });
+
+  // FIX #7: Escape key closes modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('resumeModal');
+      if (modal.style.display === 'flex') closeResume();
+    }
+  });
+
+  // ── HAMBURGER MENU (FIX #11) ──
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', function() {
+    var isOpen = mobileMenu.classList.contains('open');
+    mobileMenu.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+
+  // ── SCROLL ANIMATIONS ──
+  const obs = new IntersectionObserver(els => {
+    els.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: .12 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
