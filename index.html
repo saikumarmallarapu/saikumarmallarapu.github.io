@@ -391,7 +391,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 .close-btn:hover{background:var(--bg);border-color:var(--accent);color:var(--accent)}
 .resume-frame{
   width:100%;
-  height:min(500px,60vh);
+  height:min(800px,70vh);
   border:none;
   flex:1;
 }
@@ -420,7 +420,8 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   .cert{flex-direction:column;text-align:center}
   .edu-c{flex-direction:column;align-items:flex-start;gap:3px}
   .contact-box{padding:36px 20px}
-  .stats{flex-direction:column;gap:1px}
+  .stats{flex-direction:row;flex-wrap:wrap}
+  .stat{flex:1 1 calc(50% - 1px);min-width:0}
   .hero h1{letter-spacing:-2px}
 }
 </style>
