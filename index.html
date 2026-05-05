@@ -473,6 +473,70 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
     height:100%;
   }
 }
+/* ── TYPING ANIMATION ── */
+.typing::after{content:'|';animation:cursor .7s infinite}
+@keyframes cursor{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── BACK TO TOP ── */
+.btt{
+  position:fixed;bottom:28px;right:28px;z-index:300;
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;border:none;cursor:pointer;
+  font-size:20px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(37,99,235,.35);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .3s;
+}
+.btt.show{opacity:1;pointer-events:auto}
+.btt:hover{transform:translateY(-3px)}
+
+/* ── DARK MODE ── */
+body.dark{
+  --bg:#0f172a;--white:#1e293b;--text:#f1f5f9;
+  --secondary:#94a3b8;--muted:#64748b;
+  --accent:#60a5fa;--accent2:#93c5fd;
+  --accent-bg:#1e3a5f;--border:#1e293b;
+  --shadow:0 4px 24px rgba(0,0,0,.3);
+  --shadow-hover:0 16px 48px rgba(0,0,0,.4);
+}
+body.dark nav{background:rgba(15,23,42,0.95)}
+body.dark .mobile-menu{background:rgba(15,23,42,0.98)}
+body.dark .hero{background:linear-gradient(170deg,#0f172a 0%,#1e293b 55%,#0f172a 100%)}
+body.dark .tag:hover{background:var(--accent-bg)}
+
+/* ── DARK MODE TOGGLE ── */
+.dm-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg);border:1.5px solid var(--border);
+  cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.dm-btn:hover{border-color:var(--accent);transform:rotate(20deg)}
+
+/* ── ACTIVE NAV ── */
+.nav-links a.active{color:var(--accent);font-weight:600}
+
+/* ── COPY EMAIL ── */
+.copy-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:600;color:var(--accent);
+  background:var(--accent-bg);border:1.5px solid #bfdbfe;
+  padding:6px 16px;border-radius:100px;cursor:pointer;
+  border-style:solid;font-family:inherit;
+  transition:all .2s;margin-top:8px;
+}
+.copy-btn:hover{background:#dbeafe}
+.copy-toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:var(--text);color:#fff;
+  padding:10px 20px;border-radius:100px;
+  font-size:13px;font-weight:600;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;z-index:400;
+}
+.copy-toast.show{opacity:1}  
 </style>
 </head>
 <body>
@@ -489,6 +553,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
     <li><a href="https://spnexio.in" target="_blank" rel="noopener noreferrer">spnexio</a></li>
   </ul>
   <div class="nav-right">
+    <button class="dm-btn" id="dmBtn" aria-label="Toggle dark mode">🌙</button>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
@@ -777,6 +842,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
     <div class="sec-tag" style="text-align:center;margin-bottom:10px">Contact</div>
     <div class="c-h">Let's build something together</div>
     <div class="c-sub">Open to Django Developer and Python Backend roles.<br>Available for full-time positions and freelance projects.</div>
+    <button class="copy-btn" onclick="copyEmail()">📋 Copy Email</button>
     <div class="c-btns">
       <a href="mailto:saikumar.pydev@gmail.com" class="c-btn p">Email Me</a>
       <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="c-btn">LinkedIn</a> 
@@ -793,7 +859,9 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
 </section>
 
 </div>
-
+  
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<div class="copy-toast" id="copyToast">Email copied!</div>
 <footer>
   <span id="footerYear"></span> Saikumar Mallarapu &nbsp;&middot;&nbsp; Python Django Developer &nbsp;&middot;&nbsp; Chennai, India
 </footer>
@@ -814,10 +882,67 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   /* ── Footer year ── */
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
+  /* ── DARK MODE ── */
+  var dmBtn = document.getElementById('dmBtn');
+  var isDark = localStorage.getItem('dark') === '1';
+  if(isDark){document.body.classList.add('dark');dmBtn.textContent='☀️'}
+  dmBtn.addEventListener('click',function(){
+    document.body.classList.toggle('dark');
+    isDark = document.body.classList.contains('dark');
+    localStorage.setItem('dark', isDark ? '1' : '0');
+    dmBtn.textContent = isDark ? '☀️' : '🌙';
+  });
+
+  /* ── BACK TO TOP ── */
+  var btt = document.getElementById('btt');
+  window.addEventListener('scroll',function(){
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+
+  /* ── ACTIVE NAV ── */
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',function(){
+    var pos = window.scrollY + 80;
+    sections.forEach(function(s){
+      if(pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight){
+        navLinks.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href')==='#'+s.id);
+        });
+      }
+    });
+  });
+
+  /* ── COPY EMAIL ── */
+  function copyEmail(){
+    navigator.clipboard.writeText('saikumar.pydev@gmail.com').then(function(){
+      var t = document.getElementById('copyToast');
+      t.classList.add('show');
+      setTimeout(function(){t.classList.remove('show')},2000);
+    });
+  }
+
+  /* ── TYPING ANIMATION ── */
+  var roles = ['Python Django Developer','Backend Engineer','REST API Specialist'];
+  var ri = 0, ci = 0, del = false;
+  var el = document.querySelector('.hero-role');
+  el.classList.add('typing');
+  function type(){
+    var cur = roles[ri];
+    if(!del){
+      el.textContent = cur.slice(0, ++ci);
+      if(ci === cur.length){del=true;setTimeout(type,1800);return}
+    } else {
+      el.textContent = cur.slice(0, --ci);
+      if(ci === 0){del=false;ri=(ri+1)%roles.length}
+    }
+    setTimeout(type, del ? 40 : 80);
+  }
+  type();
+
   /* ══ RESUME MODAL ══ */
   var resumeLoaded = false;
   var lastFocused  = null;
-
   function openResume() {
     lastFocused = document.activeElement;
     if (!resumeLoaded) {
@@ -826,22 +951,17 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
     }
     var modal = document.getElementById('resumeModal');
     modal.classList.add('open');
-    document.body.style.overflow = 'hidden';   /* prevent background scroll */
+    document.body.style.overflow = 'hidden';
     document.getElementById('closeBtn').focus();
   }
-
   function closeResume() {
     document.getElementById('resumeModal').classList.remove('open');
     document.body.style.overflow = '';
     if (lastFocused) lastFocused.focus();
   }
-
-  /* Click backdrop to close */
   document.getElementById('resumeModal').addEventListener('click', function(e) {
     if (e.target === this) closeResume();
   });
-
-  /* Escape key closes modal */
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && document.getElementById('resumeModal').classList.contains('open')) {
       closeResume();
@@ -852,23 +972,16 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   var hamburger   = document.getElementById('hamburger');
   var mobileMenu  = document.getElementById('mobileMenu');
   var overlay     = document.getElementById('mobileOverlay');
-
   hamburger.addEventListener('click', function(e) {
     e.stopPropagation();
     var isOpen = mobileMenu.classList.contains('open');
-    if (isOpen) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
+    if (isOpen) { closeMobileMenu(); } else { openMobileMenu(); }
   });
-
   function openMobileMenu() {
     mobileMenu.classList.add('open');
     overlay.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
   }
-
   function closeMobileMenu() {
     mobileMenu.classList.remove('open');
     overlay.classList.remove('open');
