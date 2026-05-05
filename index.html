@@ -113,8 +113,8 @@ nav{
 .mobile-menu-overlay{
   display:none;
   position:fixed;inset:0;
-  z-index:198;
-  background:transparent;
+  z-index:298;
+  background:rgba(0,0,0,0.3);
 }
 .mobile-menu-overlay.open{display:block}
 
@@ -461,6 +461,7 @@ footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-si
   .stats{flex-direction:row;flex-wrap:wrap}
   .stat{flex:1 1 calc(50% - 1px);min-width:0}
   .hero h1{letter-spacing:-2px}
+  .mobile-menu{z-index:299}
 
   /* Mobile modal — true fullscreen */
   .modal-content{
