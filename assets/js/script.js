@@ -34,7 +34,7 @@
 
     // Loop through each screenshot to create the horizontal gallery slides.
     var gallerySlides = safeImages.map(function (source, imageIndex) {
-      return '<div class="project-slide"><img src="' + escapeHtml(source) + '" alt="' + escapeHtml(project.name) + ' screenshot ' + (imageIndex + 1) + '" loading="lazy"></div>';
+      return '<div class="project-slide"><img src="' + escapeHtml(source) + '" alt="' + escapeHtml(project.name) + ' screenshot ' + (imageIndex + 1) + '" loading="lazy" decoding="async"></div>';
     }).join("");
     var galleryControls = safeImages.length > 1
       ? '<div class="project-gallery-controls"><span class="project-gallery-count"><b>1</b> / ' + safeImages.length + '</span><div><button type="button" data-gallery-direction="-1" aria-label="Previous ' + escapeHtml(project.name) + ' screenshot">&#8592;</button><button type="button" data-gallery-direction="1" aria-label="Next ' + escapeHtml(project.name) + ' screenshot">&#8594;</button></div></div>'
@@ -80,13 +80,17 @@
   document.getElementById("companyCount").textContent = companyProjects.length + " projects";
   document.getElementById("personalCount").textContent = personalProjects.length + " projects";
 
-  // Give every rendered project gallery its own navigation and autoplay timer.
+  // Store one playback updater per gallery for browser tab visibility changes.
+  var galleryPlaybackControls = [];
+
+  // Give every gallery navigation, but only autoplay it while it is near the viewport.
   document.querySelectorAll(".project-gallery").forEach(function (gallery) {
     var track = gallery.querySelector(".project-gallery-track");
     var slides = Array.from(track.children);
     var counter = gallery.querySelector(".project-gallery-count b");
     var buttons = gallery.querySelectorAll("[data-gallery-direction]");
     var autoplayTimer = null;
+    var galleryIsVisible = false;
     var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Calculate the visible slide from the gallery's horizontal scroll position.
@@ -106,10 +110,10 @@
       autoplayTimer = null;
     }
 
-    // Do not autoplay a single image, a hidden tab, or reduced-motion mode.
+    // Off-screen galleries stay idle to avoid many timers and image updates on mobile.
     function startAutoplay() {
       stopAutoplay();
-      if (slides.length < 2 || prefersReducedMotion || document.hidden) return;
+      if (!galleryIsVisible || slides.length < 2 || prefersReducedMotion || document.hidden) return;
       autoplayTimer = setInterval(function () {
         goToSlide(getActiveIndex() + 1);
       }, 4200);
@@ -136,11 +140,27 @@
     gallery.addEventListener("focusout", startAutoplay);
     gallery.addEventListener("touchstart", stopAutoplay, { passive: true });
     gallery.addEventListener("touchend", startAutoplay, { passive: true });
-    document.addEventListener("visibilitychange", function () {
+    updateGalleryState();
+
+    if ("IntersectionObserver" in window) {
+      var galleryObserver = new IntersectionObserver(function (entries) {
+        galleryIsVisible = entries[0].isIntersecting;
+        if (galleryIsVisible) startAutoplay(); else stopAutoplay();
+      }, { rootMargin: "160px 0px", threshold: 0.01 });
+      galleryObserver.observe(gallery);
+    } else {
+      galleryIsVisible = true;
+      startAutoplay();
+    }
+
+    galleryPlaybackControls.push(function () {
       if (document.hidden) stopAutoplay(); else startAutoplay();
     });
-    updateGalleryState();
-    startAutoplay();
+  });
+
+  // Pause or restart only the galleries that are currently visible.
+  document.addEventListener("visibilitychange", function () {
+    galleryPlaybackControls.forEach(function (updatePlayback) { updatePlayback(); });
   });
 
   // Theme selection updates the page, browser colour, and stored preference.
@@ -222,7 +242,7 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { rootMargin: "0px 0px -24px", threshold: 0.01 });
     revealItems.forEach(function (item) { revealObserver.observe(item); });
   } else {
     revealItems.forEach(function (item) { item.classList.add("visible"); });

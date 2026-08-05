@@ -235,7 +235,14 @@ button { font: inherit; }
   line-height: 0.98;
 }
 
-.hero h1 span { color: var(--muted); }
+.hero h1 span {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.68em;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
 
 .hero-summary {
   max-width: 690px;
@@ -593,8 +600,8 @@ button { font: inherit; }
   .mobile-nav a { padding: 12px 13px; border-radius: 8px; color: var(--muted); font-size: 15px; font-weight: 650; text-decoration: none; }
   .mobile-nav a:hover { background: var(--surface); color: var(--text); }
 
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .portrait-wrap { justify-self: start; width: min(360px, 72%); }
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .portrait-wrap { justify-self: center; width: min(300px, 68%); }
   .split-heading { grid-template-columns: 1fr; align-items: start; gap: 18px; }
   .timeline-item { grid-template-columns: 0.5fr 1.5fr; gap: 34px; }
 }
@@ -616,26 +623,33 @@ button { font: inherit; }
   .theme-label { display: none; }
   .mobile-nav { top: 70px; }
 
-  .hero { padding: 112px 0 64px; }
-  .hero h1 { font-size: clamp(45px, 13vw, 62px); }
+  .hero { padding: 104px 0 30px; }
+  .hero-grid { gap: 24px; }
+  .hero h1 { font-size: clamp(42px, 11.5vw, 52px); }
   .hero-summary { margin-top: 21px; font-size: 16px; }
-  .hero-actions .button,
+  .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-actions .button { width: auto; padding-inline: 12px; }
   .contact-actions .button { width: 100%; }
   .email-action { width: 100%; }
   .email-action .button { min-width: 0; flex: 1; width: auto; }
-  .hero-facts { grid-template-columns: 1fr; padding: 6px 0; }
-  .hero-facts li { padding: 13px 0; }
-  .hero-facts li + li { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
-  .portrait-wrap { width: 78%; }
+  .hero-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 16px 0; }
+  .hero-facts li { padding: 0 9px; }
+  .hero-facts li:first-child { padding-left: 0; }
+  .hero-facts li + li { padding-left: 9px; border-top: 0; border-left: 1px solid var(--line); }
+  .hero-facts strong { font-size: 15px; line-height: 1.25; white-space: nowrap; }
+  .hero-facts span { margin-top: 5px; font-size: 11px; line-height: 1.4; }
+  .hero-links { justify-content: center; margin-top: 18px; }
+  .portrait-wrap { width: min(210px, 58vw); }
+  .portrait-frame { border-radius: 20px; }
 
-  .section { padding: 64px 0; }
-  .section-intro { margin-bottom: 30px; }
-  .section h2 { font-size: 40px; }
+  .section { padding: 56px 0; }
+  .section-intro { margin-bottom: 26px; }
+  .section h2 { font-size: 32px; line-height: 1.1; }
   .split-heading > p { font-size: 15px; }
   .group-heading { align-items: flex-start; flex-direction: column; gap: 13px; }
-  .project-group + .project-group { margin-top: 50px; }
-  .project-card { min-height: 0; padding: 24px; }
-  .project-card h4 { margin-top: 42px; font-size: 29px; }
+  .project-group + .project-group { margin-top: 44px; }
+  .project-card { min-height: 0; padding: 21px; }
+  .project-card h4 { margin-top: 38px; font-size: 26px; line-height: 1.15; }
   .project-card.has-images h4 { margin-top: 22px; }
   .project-gallery { margin-inline: -7px; }
   .project-summary { font-size: 14px; }
@@ -644,10 +658,15 @@ button { font: inherit; }
   .skill-row { grid-template-columns: 1fr; gap: 7px; padding: 18px 0; }
   .timeline-item { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
   .timeline-meta { flex-direction: row; gap: 12px; }
-  .timeline-body h3 { font-size: 28px; }
-  .contact-inner h2 { font-size: 42px; }
+  .timeline-body h3 { font-size: 25px; line-height: 1.15; }
+  .credentials-column h2 { font-size: 31px; }
+  .credential-card h3 { font-size: 19px; line-height: 1.3; }
+  .contact-inner h2 { font-size: 36px; line-height: 1.1; }
   .contact-links { flex-wrap: wrap; gap: 18px; }
   .site-footer .container { flex-direction: column; gap: 2px; }
+
+  /* Never let an optional entrance animation hide mobile content permanently. */
+  .reveal { opacity: 1; transform: none; }
 }
 
 /* Narrow phones: protect the header and long contact/project text. */
@@ -665,11 +684,12 @@ button { font: inherit; }
   .brand-copy strong { font-size: 13px; }
   .theme-toggle,
   .menu-button { width: 39px; height: 39px; min-height: 39px; }
-  .hero h1 { font-size: 42px; }
+  .hero h1 { font-size: 40px; }
+  .hero-actions { grid-template-columns: 1fr; }
   .section h2,
-  .contact-inner h2 { font-size: 36px; }
+  .contact-inner h2 { font-size: 31px; }
   .project-card { padding: 20px; }
-  .project-card h4 { font-size: 26px; }
+  .project-card h4 { font-size: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
