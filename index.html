@@ -1,1248 +1,353 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saikumar Mallarapu | Python Django Developer & Backend Engineer</title>
-<meta name="description" content="Saikumar Mallarapu is a Python Django Developer and Backend Engineer specializing in Django, Django REST Framework, PostgreSQL, REST APIs, JWT Authentication, automation tools, and scalable web applications.">
-<meta name="keywords" content="Saikumar Mallarapu, Python Developer, Django Developer, Django REST Framework, Backend Engineer, PostgreSQL, REST API Developer, JWT Authentication, Python Backend Developer">
-<meta name="author" content="Saikumar Mallarapu">
-<meta name="robots" content="index, follow">
-<meta name="googlebot" content="index, follow">
-<link rel="canonical" href="https://saikumarmallarapu.github.io/">
-<meta name="theme-color" content="#2563eb">
-<meta property="og:title" content="Saikumar Mallarapu — Python Django Developer">
-<meta property="og:description" content="Python Django Developer focused on production-ready Django apps, REST APIs, PostgreSQL, Docker, AWS, and backend systems.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://saikumarmallarapu.github.io/">
-<meta property="og:image" content="https://saikumarmallarapu.github.io/office-look.jpg">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Saikumar Mallarapu — Python Django Developer">
-<meta name="twitter:description" content="Python Django Developer focused on Django, DRF, PostgreSQL, REST APIs, Docker, AWS, and backend systems.">
-<meta name="twitter:image" content="https://saikumarmallarapu.github.io/office-look.jpg">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#f8fafc;
-  --white:#ffffff;
-  --text:#0f172a;
-  --secondary:#475569;
-  --muted:#94a3b8;
-  --accent:#2563eb;
-  --accent2:#3b82f6;
-  --accent-bg:#eff6ff;
-  --border:#e2e8f0;
-  --shadow:0 4px 24px rgba(15,23,42,0.06);
-  --shadow-hover:0 16px 48px rgba(15,23,42,0.12);
-  --r:18px;
-}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  line-height:1.7;
-  font-size:15px;
-}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:60px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;
-  background:rgba(248,250,252,0.92);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(226,232,240,0.8);
-}
-.nav-logo{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.4px}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-size:13px;font-weight:500;color:var(--secondary);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--accent)}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-cta{
-  font-size:13px;font-weight:600;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;padding:8px 20px;border-radius:100px;
-  text-decoration:none;
-  transition:opacity .2s,transform .2s;
-  box-shadow:0 2px 12px rgba(37,99,235,.3);
-}
-.nav-cta:hover{opacity:.9;transform:translateY(-1px)}
-
-/* ── HAMBURGER ── */
-.hamburger{
-  display:none;
-  flex-direction:column;justify-content:center;gap:5px;
-  background:none;border:none;cursor:pointer;
-  padding:6px;border-radius:8px;
-  transition:background .2s;
-  z-index:201;
-  position:relative;
-}
-.hamburger:hover{background:var(--accent-bg)}
-.hamburger span{
-  display:block;width:22px;height:2px;
-  background:var(--text);border-radius:2px;
-  transition:transform .3s,opacity .3s;
-}
-.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
-.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* ── MOBILE MENU ── */
-.mobile-menu{
-  position:fixed;
-  top:60px;left:0;right:0;
-  z-index:9999;
-  background:#f8fafc;
-  border-bottom:1px solid var(--border);
-  padding:12px 16px 16px;
-  flex-direction:column;gap:4px;
-  box-shadow:0 8px 24px rgba(15,23,42,0.08);
-  display:none;
-  transition:none;
-  max-height:calc(100vh - 60px);
-  overflow-y:auto;
-}
-.mobile-menu.open{
-  display:flex;
-}
-.mobile-menu.open{
-  visibility:visible;
-  opacity:1;
-  pointer-events:auto;
-  transform:translateY(0);
-}
-.mobile-menu a{
-  font-size:15px;font-weight:500;color:var(--secondary);
-  text-decoration:none;padding:11px 14px;border-radius:10px;
-  transition:background .2s,color .2s;
-}
-.mobile-menu a:hover{background:var(--accent-bg);color:var(--accent)}
-.mobile-menu-overlay{
-  display:none;
-  position:fixed;inset:0;
-  z-index:298;
-  background:rgba(0,0,0,0.3);
-}
-.mobile-menu-overlay.open{display:block}
-
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;
-  padding:100px 24px 80px;
-  background:linear-gradient(170deg,#eef2ff 0%,#f8fafc 55%,#f0f9ff 100%);
-  position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;
-  width:600px;height:600px;
-  background:radial-gradient(circle,rgba(37,99,235,.07) 0%,transparent 70%);
-  top:20%;left:50%;transform:translateX(-50%);
-  pointer-events:none;
-}
-.hero-photo{
-  width:112px;height:112px;
-  border-radius:50%;
-  object-fit:cover;
-  object-position:center top;
-  border:4px solid #fff;
-  box-shadow:0 8px 32px rgba(15,23,42,.14);
-  margin-bottom:20px;
-  animation:fadeUp .5s .05s both;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:#fff;border:1px solid #dbeafe;
-  border-radius:100px;padding:6px 16px;
-  font-size:12.5px;font-weight:500;color:var(--secondary);
-  margin-bottom:22px;
-  box-shadow:0 2px 8px rgba(37,99,235,.08);
-  animation:fadeUp .5s .1s both;
-}
-.dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.hero h1{
-  font-size:clamp(42px,6.5vw,72px);
-  font-weight:800;
-  letter-spacing:-3px;
-  color:var(--text);
-  line-height:1.04;
-  margin-bottom:14px;
-  animation:fadeUp .5s .15s both;
-}
-.hero h1 span{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-role{
-  font-size:clamp(17px,2.5vw,22px);
-  font-weight:400;color:var(--secondary);
-  letter-spacing:-.3px;margin-bottom:8px;
-  animation:fadeUp .5s .2s both;
-}
-.hero-loc{
-  font-size:14px;color:var(--muted);
-  margin-bottom:36px;
-  animation:fadeUp .5s .22s both;
-}
-.hero-btns{
-  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-  margin-bottom:56px;
-  animation:fadeUp .5s .25s both;
-}
-.btn-p{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;padding:14px 30px;border-radius:100px;
-  text-decoration:none;font-size:15px;font-weight:600;
-  box-shadow:0 4px 20px rgba(37,99,235,.35);
-  transition:opacity .2s,transform .2s,box-shadow .2s;
-}
-.btn-p:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,99,235,.4)}
-.btn-s{
-  background:#fff;color:var(--text);
-  padding:14px 30px;border-radius:100px;
-  text-decoration:none;font-size:15px;font-weight:600;
-  border:1.5px solid var(--border);
-  transition:all .2s;
-  box-shadow:var(--shadow);
-  cursor:pointer;
-  font-family:inherit;
-}
-.btn-s:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-
-/* STATS */
-.stats{
-  display:flex;gap:1px;
-  background:var(--border);
-  border-radius:16px;overflow:hidden;
-  border:1px solid var(--border);
-  max-width:580px;width:100%;
-  animation:fadeUp .5s .3s both;
-}
-.stat{flex:1;background:#fff;padding:22px 20px;text-align:center}
-.stat-n{font-size:26px;font-weight:800;color:var(--text);letter-spacing:-1.5px;opacity:1}
-.stat-l{font-size:11.5px;color:var(--muted);margin-top:3px;font-weight:500}
-
-/* ── LAYOUT ── */
-.wrap{max-width:820px;margin:0 auto;padding:0 24px}
-
-/* ── SECTION ── */
-.sec{padding:108px 0}
-.sec+.sec{border-top:1px solid var(--border)}
-.sec-tag{
-  font-size:11px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--accent);margin-bottom:10px;
-}
-.sec-h{
-  font-size:clamp(28px,4vw,40px);
-  font-weight:800;letter-spacing:-1.5px;
-  color:var(--text);margin-bottom:10px;line-height:1.1;
-}
-.sec-sub{
-  font-size:16px;color:var(--secondary);
-  max-width:480px;margin-bottom:48px;line-height:1.7;
-}
-
-/* ── CARD ── */
-.card{
-  background:var(--white);
-  border-radius:var(--r);
-  padding:28px 32px;
-  box-shadow:var(--shadow);
-  transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;
-}
-.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
-
-/* ── ABOUT ── */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.a-icon{font-size:20px;margin-bottom:14px;display:inline-block;
-  background:var(--accent-bg);border-radius:10px;padding:8px;line-height:1}
-.a-h{font-size:15px;font-weight:700;color:var(--text);margin-bottom:7px;letter-spacing:-.2px}
-.a-p{font-size:14px;color:var(--secondary);line-height:1.7}
-
-/* ── SKILLS ── */
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.sg-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{
-  font-size:13px;color:var(--secondary);
-  background:var(--bg);border:1.5px solid var(--border);
-  padding:5px 13px;border-radius:100px;
-  transition:all .2s;font-weight:500;
-}
-.tag:hover{background:var(--accent-bg);border-color:#bfdbfe;color:var(--accent)}
-
-/* ── EXPERIENCE ── */
-.el{display:flex;flex-direction:column;gap:16px}
-.ec-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;gap:12px}
-.ec-co{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:3px;text-transform:uppercase}
-.ec-role{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.6px}
-.ec-pill{
-  font-size:11.5px;font-weight:600;
-  background:#f0fdf4;color:#15803d;
-  padding:4px 13px;border-radius:100px;
-  border:1.5px solid #bbf7d0;white-space:nowrap;flex-shrink:0;
-}
-.ec-pill.founder{background:#fefce8;color:#854d0e;border-color:#fde68a}
-.ec-meta{font-size:13px;color:var(--muted);margin-bottom:20px;font-weight:500}
-.ep{list-style:none;display:flex;flex-direction:column;gap:10px;
-  border-left:2.5px solid #e0e7ff;padding-left:18px;
-}
-.ep li{font-size:14px;color:var(--secondary);line-height:1.7;position:relative}
-.ep li::before{
-  content:'';position:absolute;
-  left:-22px;top:10px;
-  width:6px;height:6px;border-radius:50%;
-  background:var(--accent);opacity:.5;
-}
-.ep li strong{color:var(--text);font-weight:600}
-
-
-.hero-socials{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:-34px 0 34px;animation:fadeUp .5s .28s both}
-.hero-socials a{font-size:13px;font-weight:600;color:var(--accent);background:#fff;border:1.5px solid #bfdbfe;padding:7px 16px;border-radius:100px;text-decoration:none;box-shadow:0 2px 10px rgba(37,99,235,.08);transition:all .2s}
-.hero-socials a:hover{transform:translateY(-2px);background:var(--accent-bg)}
-.project-img{width:100%;height:210px;object-fit:cover;border-radius:14px;margin-bottom:18px;border:1.5px solid var(--border);background:linear-gradient(135deg,#eff6ff,#f8fafc)}
-.pc.wide .project-img{height:260px}
-.project-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-.project-actions a{font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-bg);border:1.5px solid #bfdbfe;border-radius:100px;padding:7px 14px;text-decoration:none;transition:all .2s}
-.project-actions a:hover{background:#dbeafe;transform:translateY(-2px)}
-body.dark .hero-socials a,body.dark .project-actions a{background:var(--accent-bg);border-color:#1e3a5f;color:var(--accent)}
-@media(max-width:768px){.hero-socials{margin:-28px 0 30px}.project-img,.pc.wide .project-img{height:190px}}
-
-/* ── PROJECTS ── */
-.pg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.pc{display:flex;flex-direction:column}
-.pc.wide{grid-column:span 2}
-.pc-lbl{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.pc-title{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.4px;margin-bottom:10px;line-height:1.3}
-.pc-desc{font-size:13.5px;color:var(--secondary);line-height:1.7;flex:1;margin-bottom:18px}
-.pc-desc li{margin-left:16px;margin-bottom:5px}
-.st{display:flex;flex-wrap:wrap;gap:6px}
-.st span{
-  font-size:11.5px;color:var(--muted);font-weight:500;
-  background:var(--bg);border:1.5px solid var(--border);
-  padding:3px 11px;border-radius:100px;
-}
-
-/* ── CERT ── */
-.cert{display:flex;align-items:center;gap:24px}
-.cert-ico{
-  width:58px;height:58px;border-radius:14px;
-  background:var(--accent-bg);
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;flex-shrink:0;
-  border:1.5px solid #bfdbfe;
-}
-.cert-name{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px;margin-bottom:4px}
-.cert-iss{font-size:13.5px;color:var(--secondary);margin-bottom:10px;line-height:1.6}
-.cert-pills{display:flex;gap:8px;flex-wrap:wrap}
-.cp{font-size:12px;font-weight:600;padding:3px 12px;border-radius:100px;border:1.5px solid}
-.cp-b{color:var(--accent);background:var(--accent-bg);border-color:#bfdbfe}
-.cp-g{color:var(--muted);background:var(--bg);border-color:var(--border)}
-
-/* ── EDU ── */
-.edu-list{display:flex;flex-direction:column;gap:12px}
-.edu-c{display:flex;justify-content:space-between;align-items:center;gap:16px}
-.edu-deg{font-size:15.5px;font-weight:700;color:var(--text);letter-spacing:-.3px;margin-bottom:3px}
-.edu-sch{font-size:13px;color:var(--secondary)}
-.edu-yr{font-size:13px;color:var(--muted);white-space:nowrap;font-weight:500}
-.pursuing{
-  font-size:10.5px;font-weight:700;
-  background:#fefce8;color:#92400e;
-  padding:2px 9px;border-radius:100px;
-  border:1.5px solid #fde68a;margin-left:9px;
-}
-
-/* ── CONTACT ── */
-.contact-box{text-align:center;padding:60px 40px}
-.c-h{font-size:clamp(24px,3.5vw,36px);font-weight:800;letter-spacing:-1.2px;color:var(--text);margin-bottom:12px}
-.c-sub{font-size:16px;color:var(--secondary);margin-bottom:32px;line-height:1.7}
-.c-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto;}
-.c-btn{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:12px 22px;border-radius:100px;
-  font-size:14px;font-weight:600;text-decoration:none;
-  border:1.5px solid var(--border);color:var(--secondary);
-  background:#fff;transition:all .2s;
-  box-shadow:0 2px 8px rgba(15,23,42,.05);
-}
-.c-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(37,99,235,.15)}
-.c-btn.p{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;border-color:transparent;
-  box-shadow:0 4px 20px rgba(37,99,235,.3);
-}
-.c-btn.p:hover{opacity:.9;color:#fff}
-.locs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.loc{font-size:12.5px;color:var(--muted);font-weight:500;
-  background:#fff;border:1.5px solid var(--border);
-  padding:5px 14px;border-radius:100px}
-
-/* ── FOOTER ── */
-footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);font-weight:500}
-
-/* ── ANIMATION ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.fade{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
-.fade.in{opacity:1;transform:translateY(0)}
-
-/* ══════════════════════════════════════════
-   RESUME MODAL — FULLSCREEN (FIXED)
-   ══════════════════════════════════════════ */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.65);
-  z-index:999;
-  align-items:center;
-  justify-content:center;
-  padding:0;           /* no padding — fullscreen */
-}
-.modal.open{
-  display:flex;
-}
-
-/* Desktop: large centered panel */
-.modal-content{
-  width:min(900px, 94vw);
-  height:92vh;
-  background:#fff;
-  border-radius:16px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 24px 80px rgba(0,0,0,.30);
-}
-
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 20px;
-  border-bottom:1px solid #e2e8f0;
-  flex-shrink:0;
-  background:#fff;
-}
-.modal-header h3{
-  font-size:16px;font-weight:700;color:var(--text);
-}
-.close-btn{
-  display:flex;align-items:center;justify-content:center;
-  width:34px;height:34px;
-  background:none;border:1.5px solid var(--border);
-  border-radius:8px;cursor:pointer;
-  font-size:20px;color:var(--secondary);
-  line-height:1;font-family:inherit;
-  transition:all .2s;
-  flex-shrink:0;
-}
-.close-btn:hover{background:var(--bg);border-color:var(--accent);color:var(--accent)}
-
-/* iframe fills all remaining space */
-.resume-frame{
-  width:100%;
-  flex:1;
-  border:none;
-  display:block;
-  min-height:0;   /* flex fix */
-}
-
-.download-btn{
-  display:block;
-  text-align:center;
-  padding:13px;
-  background:var(--accent);
-  color:#fff;
-  text-decoration:none;
-  font-weight:600;
-  font-size:14px;
-  flex-shrink:0;
-  transition:opacity .2s;
-  letter-spacing:.2px;
-}
-.download-btn:hover{opacity:.9}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  nav{padding:0 16px}
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .wrap{padding:0 18px}
-  .sec{padding:72px 0}
-  .g2,.pg{grid-template-columns:1fr}
-  .pc.wide{grid-column:span 1}
-  .cert{flex-direction:column;text-align:center}
-  .edu-c{flex-direction:column;align-items:flex-start;gap:3px}
-  .contact-box{padding:36px 20px}
-  .stats{flex-direction:row;flex-wrap:wrap}
-  .stat{flex:1 1 calc(50% - 1px);min-width:0}
-  .hero h1{letter-spacing:-2px}
-  .mobile-menu{z-index:299}
-
-  /* Mobile modal — true fullscreen */
-  .modal-content{
-    width:100%;
-    height:100%;
-    border-radius:0;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saikumar Mallarapu | Python Django Developer</title>
+  <meta name="description" content="Saikumar Mallarapu is a Python Django Developer building production-grade REST APIs, PostgreSQL systems, automation workflows, and backend applications.">
+  <meta name="author" content="Saikumar Mallarapu">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://saikumarmallarapu.github.io/">
+  <meta name="theme-color" content="#07090c" id="themeColor">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Saikumar Mallarapu">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="Saikumar Mallarapu | Python Django Developer">
+  <meta property="og:description" content="Production-focused Python Django Developer experienced in REST APIs, PostgreSQL, automation workflows, and backend systems.">
+  <meta property="og:url" content="https://saikumarmallarapu.github.io/">
+  <meta property="og:image" content="https://saikumarmallarapu.github.io/assets/images/profile/professional-portrait.jpg">
+  <meta property="og:image:width" content="390">
+  <meta property="og:image:height" content="544">
+  <meta property="og:image:alt" content="Saikumar Mallarapu, Python Django Developer">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Saikumar Mallarapu | Python Django Developer">
+  <meta name="twitter:description" content="Production-focused Django developer building APIs, automation workflows, and backend applications.">
+  <meta name="twitter:image" content="https://saikumarmallarapu.github.io/assets/images/profile/professional-portrait.jpg">
+  <meta name="twitter:image:alt" content="Saikumar Mallarapu, Python Django Developer">
+  <link rel="icon" type="image/png" href="assets/images/branding/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/branding/favicon-large.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("portfolio-theme");
+        if (savedTheme === "light" || savedTheme === "dark") {
+          document.documentElement.dataset.theme = savedTheme;
+        }
+      } catch (error) {}
+    }());
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://saikumarmallarapu.github.io/#website",
+        "url": "https://saikumarmallarapu.github.io/",
+        "name": "Saikumar Mallarapu",
+        "description": "Portfolio of Python Django Developer Saikumar Mallarapu"
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://saikumarmallarapu.github.io/#profile",
+        "url": "https://saikumarmallarapu.github.io/",
+        "name": "Saikumar Mallarapu | Python Django Developer",
+        "dateModified": "2026-08-06",
+        "isPartOf": { "@id": "https://saikumarmallarapu.github.io/#website" },
+        "mainEntity": { "@id": "https://saikumarmallarapu.github.io/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://saikumarmallarapu.github.io/#person",
+        "name": "Saikumar Mallarapu",
+        "jobTitle": "Python Django Developer",
+        "description": "Python Django Developer with production experience in REST APIs, PostgreSQL, automation workflows, and backend applications.",
+        "url": "https://saikumarmallarapu.github.io/",
+        "image": "https://saikumarmallarapu.github.io/assets/images/profile/professional-portrait.jpg",
+        "email": "saikumar.pydev@gmail.com",
+        "sameAs": [
+          "https://linkedin.com/in/saikumarmallarapu",
+          "https://github.com/saikumarmallarapu"
+        ],
+        "knowsAbout": ["Python", "Django", "Django REST Framework", "PostgreSQL", "REST APIs", "JWT", "Redis", "Celery", "Docker", "Linux", "Nginx", "Gunicorn", "AWS"],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Python Django Developer",
+          "skills": "Python, Django, Django REST Framework, PostgreSQL, REST APIs, JWT, Redis, Celery, Docker, Linux, Nginx, Gunicorn, AWS"
+        }
+      }
+    ]
   }
-  /* Ensure iframe takes full height on mobile */
-  .resume-frame{
-    height:100%;
-  }
-}
-/* ── BACK TO TOP ── */
-.btt{
-  position:fixed;bottom:28px;right:28px;z-index:300;
-  width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;border:none;cursor:pointer;
-  font-size:20px;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(37,99,235,.35);
-  opacity:0;pointer-events:none;
-  transition:opacity .3s,transform .3s;
-}
-.btt.show{opacity:1;pointer-events:auto}
-.btt:hover{transform:translateY(-3px)}
-
-/* ── DARK MODE ── */
-body.dark{
-  --bg:#0f172a;--white:#1e293b;--text:#f1f5f9;
-  --secondary:#94a3b8;--muted:#64748b;
-  --accent:#60a5fa;--accent2:#93c5fd;
-  --accent-bg:#1e3a5f;--border:#1e293b;
-  --shadow:0 4px 24px rgba(0,0,0,.3);
-  --shadow-hover:0 16px 48px rgba(0,0,0,.4);
-}
-body.dark nav{background:rgba(15,23,42,0.95)}
-body.dark .nav-logo{color:var(--text)}
-body.dark .mobile-menu a{color:var(--secondary)}
-body.dark .hamburger span{background:var(--text)}
-body.dark .btn-s{background:var(--white);color:var(--text);border-color:var(--border)}
-body.dark .loc{background:var(--white);color:var(--secondary)}
-body.dark .c-btn{background:var(--white);color:var(--secondary)}
-body.dark .mobile-menu{background:#0f172a !important}
-body.dark .hero{background:linear-gradient(170deg,#0f172a 0%,#1e293b 55%,#0f172a 100%)}
-body.dark .tag:hover{background:var(--accent-bg)}
-body.dark .stat{background:var(--white)}
-body.dark .stat-n{color:var(--text)}
-  
-/* ── DARK MODE TOGGLE ── */
-.dm-btn{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--bg);border:1.5px solid var(--border);
-  cursor:pointer;font-size:16px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
-}
-.dm-btn:hover{border-color:var(--accent);transform:rotate(20deg)}
-
-/* ── ACTIVE NAV ── */
-.nav-links a.active{color:var(--accent);font-weight:600}
-
-/* ── COPY EMAIL ── */
-.copy-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:13px;font-weight:600;color:var(--accent);
-  background:var(--accent-bg);border:1.5px solid #bfdbfe;
-  padding:6px 16px;border-radius:100px;cursor:pointer;
-  border-style:solid;font-family:inherit;
-  transition:all .2s;margin:8px auto 20px;
-}
-.copy-btn:hover{background:#dbeafe}
-.copy-toast{
-  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
-  background:var(--text);color:#fff;
-  padding:10px 20px;border-radius:100px;
-  font-size:13px;font-weight:600;
-  opacity:0;pointer-events:none;
-  transition:opacity .3s;z-index:400;
-}
-.copy-toast.show{opacity:1}  
-</style>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Saikumar Mallarapu",
-  "jobTitle": "Python Django Developer",
-  "url": "https://saikumarmallarapu.github.io/",
-  "email": "mailto:saikumar.pydev@gmail.com",
-  "sameAs": [
-    "https://linkedin.com/in/saikumarmallarapu",
-    "https://github.com/saikumarmallarapu",
-    "https://saipoojasolutions.in"
-  ],
-  "knowsAbout": [
-  "Python",
-  "Django",
-  "Django REST Framework",
-  "PostgreSQL",
-  "REST APIs",
-  "MySQL",
-  "SQLite",
-  "Django ORM",
-  "JWT Authentication",
-  "RBAC",
-  "WeasyPrint",
-  "openpyxl",
-  "AWS"
-  ]
-}
-</script>
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav aria-label="Main navigation">
-  <span class="nav-logo">Saikumar Mallarapu</span>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li> 
-    <li><a href="https://saipoojasolutions.in" target="_blank" rel="noopener noreferrer">Saipooja Software Solutions</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="dm-btn" id="dmBtn" aria-label="Toggle dark mode">🌙</button>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
-    <a href="mailto:saikumar.pydev@gmail.com" class="nav-cta">Hire Me</a>
-  </div>
-</nav>
+  <!-- Persistent header: primary navigation, theme switch, resume link, and mobile menu. -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-shell">
+      <a class="brand" href="#home" aria-label="Saikumar Mallarapu home">
+        <span class="brand-copy">
+          <strong>Saikumar Mallarapu</strong>
+          <small>Python Django Developer</small>
+        </span>
+      </a>
 
-<!-- Mobile overlay (closes menu on outside click) -->
-<div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="#expertise">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#credentials">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-<!-- Mobile drawer -->
-<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-  <a href="#about"        onclick="closeMobileMenu()">About</a>
-  <a href="#skills"       onclick="closeMobileMenu()">Skills</a>
-  <a href="#experience"   onclick="closeMobileMenu()">Experience</a>
-  <a href="#certifications" onclick="closeMobileMenu()">Certifications</a>
-  <a href="#education" onclick="closeMobileMenu()">Education</a>
-  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
-  <a href="#contact"      onclick="closeMobileMenu()">Contact</a>
-  <a href="https://saipoojasolutions.in" target="_blank" rel="noopener noreferrer" onclick="closeMobileMenu()">Saipooja Software Solutions</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <img src="office-look.jpg"
-       alt="Saikumar Mallarapu - Python Django Developer and Backend Engineer"
-       class="hero-photo"
-       fetchpriority="high">
-  <div class="hero-badge">
-    <span class="dot" aria-hidden="true"></span>
-    Available for new opportunities
-  </div>
-  <h1><span>Saikumar</span> Mallarapu</h1>
-  <p class="hero-role">Python Django Developer • Backend Engineer • Django REST Framework Developer</p>
-  <p class="hero-loc">Python • Django • DRF • PostgreSQL • REST APIs • JWT • RBAC • AWS</p>
-  <div class="hero-btns">
-    <a href="mailto:saikumar.pydev@gmail.com" class="btn-p">Hire Me</a>
-    <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="btn-s">View LinkedIn</a>
-    <button class="btn-s" onclick="openResume()" aria-haspopup="dialog">View Resume</button>
-  </div>
-  <div class="hero-socials" aria-label="Social links">
-    <a href="https://github.com/saikumarmallarapu" target="_blank" rel="noopener noreferrer">GitHub</a>
-    <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <a href="mailto:saikumar.pydev@gmail.com">Email</a>
-  </div>
-  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px">
-    <a href="https://github.com/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="c-btn">GitHub</a>
-    <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="c-btn">LinkedIn</a>
-    <a href="https://www.instagram.com/saikumar.mallarapu/" target="_blank" rel="noopener noreferrer" class="c-btn">Instagram</a>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><div class="stat-n">1+</div><div class="stat-l">Years Experience</div></div>
-    <div class="stat"><div class="stat-n">13+</div><div class="stat-l">Production Projects</div></div>
-    <div class="stat"><div class="stat-n">85+</div><div class="stat-l">Tasks Delivered</div></div>
-    <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Business Domains</div></div>
-  </div>
-</section>
-
-<div class="wrap">
-
-<!-- ABOUT -->
-<section class="sec fade" id="about">
-  <div class="sec-tag">About</div>
-  <h2 class="sec-h">Who I Am</h2>
-  <p class="sec-sub">A backend developer focused on building production-grade Django systems with clean API architecture and scalable data modeling.</p>
-  <div class="g2">
-    <div class="card">
-      <div class="a-icon" aria-hidden="true">&#128736;</div>
-      <div class="a-h">Currently at M7 Corporation</div>
-      <p class="a-p">Developed 13 production Django projects and delivered 85+ tasks including REST APIs, PostgreSQL databases, authentication, automation, and production support.</p>
-    </div>
-    <div class="card">
-      <div class="a-icon" aria-hidden="true">&#127979;</div>
-      <div class="a-h">Pursuing MCA</div>
-      <p class="a-p">Master of Computer Applications at Shree Krishna Chaitanya Institute of Science and Technology, Nellore (2025 to 2027).</p>
-    </div>
-    <div class="card">
-      <div class="a-icon" aria-hidden="true">&#128640;</div>
-      <div class="a-h">Founder & Backend Developer — Saipooja Software Solutions</div>
-      <p class="a-p">Building client-focused websites, automation tools, and Django-based business software.</p>
-    </div>
-    <div class="card">
-      <div class="a-icon" aria-hidden="true">&#127942;</div>
-      <div class="a-h">NIELIT Certified</div>
-      <p class="a-p">Certified Web Developer from NIELIT (Government of India), covering Frontend, Backend Development and Database systems. Grade B.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="sec fade" id="skills">
-  <div class="sec-tag">Skills</div>
-  <h2 class="sec-h">Tech Stack</h2>
-  <p class="sec-sub">Technologies I use to build scalable backend systems.</p>
-  <div class="sg">
-    <div class="card">
-      <div class="sg-title">Languages</div>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">JavaScript</span>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+          <span class="theme-icon" id="themeIcon" aria-hidden="true">&#9788;</span>
+          <span class="theme-label" id="themeLabel">Light</span>
+        </button>
+        <a class="header-cta" href="assets/documents/saikumar_mallarapu_python_developer.pdf" target="_blank" rel="noopener noreferrer" type="application/pdf">Resume</a>
+        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation">
+          <span></span><span></span>
+        </button>
       </div>
-    </div>
-    <div class="card">
-      <div class="sg-title">Frameworks</div>
-      <div class="tags">
-        <span class="tag">Django</span>
-        <span class="tag">Django REST Framework</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sg-title">Database</div>
-      <div class="tags">
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">SQLite</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sg-title">APIs</div>
-      <div class="tags">
-        <span class="tag">REST APIs</span>
-        <span class="tag">Django ORM</span>
-        <span class="tag">RBAC</span>
-        <span class="tag">JWT Authentication</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sg-title">Tools</div>
-      <div class="tags">
-        <span class="tag">Git</span>
-        <span class="tag">GitHub</span>
-        <span class="tag">Postman</span>
-        <span class="tag">VS Code</span>
-        <span class="tag">PyCharm</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- EXPERIENCE -->
-<section class="sec fade" id="experience">
-  <div class="sec-tag">Experience</div>
-  <h2 class="sec-h">Professional Experience</h2>
-  <p class="sec-sub">Where I build things that matter</p>
-  <div class="el">
-    <div class="card">
-      <div class="ec-top">
-        <div>
-          <div class="ec-co">M7 Corporation</div>
-          <div class="ec-role">Python Django Developer</div>
-          <div class="ec-meta">July 2025 — Present &nbsp;&middot;&nbsp; Chennai, India</div>
-        </div>
-        <span class="ec-pill">Current</span>
-      </div>
-      <ul class="ep">
-        <li>Developed <strong>13 production-grade Django applications</strong> across Healthcare, NGO, E-commerce, Legal-AI, Networking, and Business Automation domains.</li>
-        <li>Built secure <strong>REST APIs</strong> using Django REST Framework with serializers, validation, JWT, Session Authentication, and RBAC.</li>
-        <li>Developed a <strong>Bulk Email Automation</strong> system eliminating 60% of manual dispatch work</li>
-        <li>Built a multi-client <strong>Invoice Generator</strong> with PDF export via WeasyPrint</li>
-        <li>Created a <strong>barcode-based receipt management system</strong> deployed across 2 foundation clients</li>
-        <li>Designed scalable PostgreSQL database schemas and optimized Django ORM queries to improve application performance and data retrieval.</li>
-        <li>Deployed and maintained Django applications using Linux, Gunicorn, and Nginx with ongoing production support.</li>
-      </ul>
+      <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+        <a href="#projects">Projects</a>
+        <a href="#expertise">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#credentials">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <div class="card">
-  <div class="ec-top">
-    <div>
-      <div class="ec-co">Amaravathi Software Innovations Pvt. Ltd.</div>
-      <div class="ec-role">Assistant Software Developer Intern</div>
-      <div class="ec-meta">June 2024 — August 2024 · Rajahmundry, India</div>
-    </div>
-  </div>
-  <ul class="ep">
-    <li>Completed a 120-hour software development internship in collaboration with APSCHE.</li>
-    <li>Built frontend components using HTML and CSS.</li>
-    <li>Gained practical exposure to structured software development practices.</li>
-  </ul>
-</div>
-    <div class="card">
-      <div class="ec-top">
-        <div>
-          <div class="ec-co">Saipooja Software Solutions — Freelance Software Development</div>
-          <div class="ec-role">Founder & Backend Developer</div>
-          <div class="ec-meta">
-            2026 — Present &nbsp;&middot;&nbsp;
-            <a href="https://saipoojasolutions.in" target="_blank" style="color:inherit;text-decoration:none;font-weight:600;">
-              saipoojasolutions.in
+  </header>
+
+  <main id="main">
+    <!-- Hero: primary introduction and profile image. -->
+    <section class="hero" id="home">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="section-label">Backend engineering portfolio</p>
+          <h1>Python Django Developer<br><span>building reliable products.</span></h1>
+          <p class="hero-summary">Python Django Developer with 1 year and 2 months of production experience, seeking a growth-focused engineering team where I can build reliable systems and contribute to meaningful products.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">View projects <span aria-hidden="true">&#8595;</span></a>
+            <a class="button button-secondary" href="mailto:saikumar.pydev@gmail.com">Contact me</a>
+          </div>
+          <ul class="hero-facts" aria-label="Career highlights">
+            <li><strong>1 yr 2 mos</strong><span>Professional experience</span></li>
+            <li><strong>13+ projects</strong><span>Production systems</span></li>
+            <li><strong>500+ tasks</strong><span>Features and fixes</span></li>
+          </ul>
+          <div class="hero-links" aria-label="Social profiles">
+            <a href="mailto:saikumar.pydev@gmail.com">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              <span>Email</span>
             </a>
-            &nbsp;&middot;&nbsp; Remote Software Services
+            <a href="https://github.com/saikumarmallarapu" target="_blank" rel="me noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7A11.5 11.5 0 0 0 8.4 23c.6.1.8-.3.8-.6v-2.2c-3.4.7-4.1-1.4-4.1-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .7Z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="me noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.04c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45Z"/></svg>
+              <span>LinkedIn</span>
+            </a>
           </div>
         </div>
-        <span class="ec-pill founder">Founder & Developer</span>
-      </div>
-      <ul class="ep">
-        <li>Building custom business software, websites, dashboards, automation systems, and REST API solutions for startups and enterprises.</li>
-        <li>Developing Django-based CRM, ERP, billing, and business automation systems.</li>
-        <li>End-to-end client project delivery across multiple domains</li>
-        <li>Invoice, barcode, and email automation systems</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<!-- PROJECTS -->
-<section class="sec fade" id="projects">
-  <div class="sec-tag">Projects</div>
-  <h2 class="sec-h">Production Projects</h2>
-  <p class="sec-sub">
-    Real-world Django applications and enterprise platforms developed for NGOs,
-    Healthcare, AI, Workforce Management, Business Automation, and Corporate Systems.
-  </p>
-
-  <div class="pg">
-
-    <!-- Project 1 -->
-    <div class="card pc wide">
-      <img class="project-img" src="projects/thaagam.jpg" alt="Thaagam NGO Platform" loading="lazy">
-
-      <div class="pc-lbl">NGO Management Platform</div>
-
-      <div class="pc-title">
-        Thaagam.org – NGO Management & Donation Platform
-      </div>
-
-      <p class="pc-desc">
-        Enterprise NGO platform for donation management, education sponsorship,
-        campaigns, inventory, analytics, automation bots, and administrator tools.
-        Developed multiple production modules including student management,
-        donation workflows, campaign automation, image QC, referral systems,
-        inventory management, and Excel import/export.
-      </p>
-
-      <div class="st">
-        <span>Python</span>
-        <span>Django</span>
-        <span>PostgreSQL</span>
-        <span>Bootstrap</span>
-        <span>openpyxl</span>
-      </div>
-
-      <div class="project-actions">
-        <a href="https://thaagam.org/" target="_blank">Live Website</a>
-      </div>
-    </div>
-
-
-    <!-- Project 2 -->
-    <div class="card pc">
-
-      <img class="project-img" src="projects/m7-digital.jpg" alt="M7 Digital Platform" loading="lazy">
-
-      <div class="pc-lbl">Corporate Platform</div>
-
-      <div class="pc-title">
-        M7 Digital & M7 Corporation
-      </div>
-
-      <p class="pc-desc">
-        Built dashboard modules, Label Bot integration, Help Desk UI,
-        mobile improvements, homepage updates, AI Fashion content,
-        client project management, testing, and production bug fixes.
-      </p>
-
-      <div class="st">
-        <span>Django</span>
-        <span>PostgreSQL</span>
-        <span>JavaScript</span>
-      </div>
-
-      <div class="project-actions">
-        <a href="https://m7.digital/" target="_blank">Live Website</a>
-      </div>
-
-    </div>
-
-
-    <!-- Project 3 -->
-    <div class="card pc">
-
-      <img class="project-img" src="projects/commai.jpg" alt="Comm AI Platform" loading="lazy">
-
-      <div class="pc-lbl">AI Communication Platform</div>
-
-      <div class="pc-title">
-        Comm AI
-      </div>
-
-      <p class="pc-desc">
-        Developed email campaign modules, contact management,
-        campaign automation, WhatsApp contact synchronization,
-        and fixed production issues affecting campaign accuracy.
-      </p>
-
-      <div class="st">
-        <span>Python</span>
-        <span>Django</span>
-        <span>AI Integration</span>
-      </div>
-
-      <div class="project-actions">
-        <a href="https://commai.m7corporation.com/" target="_blank">
-          Live Website
-        </a>
-      </div>
-
-    </div>
-
-
-    <!-- Project 4 -->
-    <div class="card pc">
-
-      <img class="project-img" src="projects/acustomsong.jpg" alt="AcustomSong Platform" loading="lazy">
-
-      <div class="pc-lbl">Music Platform</div>
-
-      <div class="pc-title">
-        AcustomSong.com
-      </div>
-
-      <p class="pc-desc">
-        Developed a communication platform connecting Relationship Managers
-        and Song Creators with real-time messaging workflow,
-        UI improvements, and production testing.
-      </p>
-
-      <div class="st">
-        <span>Django</span>
-        <span>Python</span>
-        <span>Chat System</span>
-      </div>
-
-      <div class="project-actions">
-        <a href="https://acustomsong.com/" target="_blank">
-          Live Website
-        </a>
-      </div>
-
-    </div>
-
-
-    <!-- Project 5 -->
-    <div class="card pc">
-
-      <img class="project-img" src="projects/gcc.jpg" alt="GCC Workforce Platform" loading="lazy">
-
-      <div class="pc-lbl">Workforce Management</div>
-
-      <div class="pc-title">
-        GCC Workforce & Attendance System
-      </div>
-
-      <p class="pc-desc">
-        Built workforce dashboards, attendance management,
-        leave approval workflow, park attendance,
-        Excel uploads, role-based access,
-        education modules, and reporting dashboards.
-      </p>
-
-      <div class="st">
-        <span>Django</span>
-        <span>PostgreSQL</span>
-        <span>Bootstrap</span>
-        <span>openpyxl</span>
-      </div>
-
-      <div class="project-actions">
-        <a href="https://privateworkforce.gccservices.in/" target="_blank">
-          Live Website
-        </a>
-      </div>
-
-    </div>
-
-
-    <!-- Project 6 -->
-    <div class="card pc">
-
-      <img class="project-img" src="projects/saipooja-crm.jpg" alt="Saipooja CRM" loading="lazy">
-
-      <div class="pc-lbl">Business Automation</div>
-
-      <div class="pc-title">
-        Saipooja Software Solutions CRM
-      </div>
-
-      <p class="pc-desc">
-        Built CRM, billing, client management,
-        REST APIs, reporting dashboards,
-        authentication, staff management,
-        invoice generation, and workflow automation.
-      </p>
-
-      <div class="st">
-        <span>Django</span>
-        <span>PostgreSQL</span>
-        <span>REST API</span>
-        <span>Automation</span>
-      </div>
-
-      <div class="project-actions">
-        <a href="https://saipoojasolutions.in/" target="_blank">
-          Live Website
-        </a>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section class="sec fade" id="certifications">
-  <div class="sec-tag">Certifications</div>
-  <h2 class="sec-h">Credentials</h2>
-  <p class="sec-sub">Government-certified professional qualification.</p>
-  <div class="card cert">
-    <div class="cert-ico" aria-hidden="true">&#127942;</div>
-    <div>
-      <div class="cert-name">Certified Web Developer (Upskilling)</div>
-      <div class="cert-iss">NIELIT — National Institute of Electronics and Information Technology, Government of India</div>
-      <div class="cert-pills">
-        <span class="cp cp-b">Grade B &nbsp;&middot;&nbsp; 74%</span>
-        <span class="cp cp-g">June 2025</span>
-        <span class="cp cp-g">Frontend &nbsp;&middot;&nbsp; Backend &nbsp;&middot;&nbsp; Databases</span>
-      </div>
-    </div>
-  </div>
-  <div class="card cert" style="margin-top:16px;">
-  <div class="cert-ico" aria-hidden="true">&#128187;</div>
-  <div>
-    <div class="cert-name">Python Full-Stack Workshop</div>
-    <div class="cert-iss">
-      Think Champ Pvt. Ltd.
-    </div>
-    <div class="cert-pills">
-      <span class="cp cp-b">Certificate of Participation</span>
-      <span class="cp cp-g">26 November 2024</span>
-      <span class="cp cp-g">Python Full-Stack</span>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- EDUCATION -->
-<section class="sec fade" id="education">
-  <div class="sec-tag">Education</div>
-  <h2 class="sec-h">Academic Background</h2>
-  <p class="sec-sub">Building a strong foundation in computer science.</p>
-  <div class="edu-list">
-    <div class="card edu-c">
-      <div>
-        <div class="edu-deg">
-          Master of Computer Applications (MCA)
-          <span class="pursuing">Pursuing</span>
+        <div class="portrait-wrap reveal">
+          <div class="portrait-frame">
+            <img src="assets/images/profile/professional-portrait.jpg" alt="Saikumar Mallarapu, Python Django Developer" fetchpriority="high">
+          </div>
         </div>
-        <div class="edu-sch">Shree Krishna Chaitanya Institute of Science and Technology, Nellore</div>
       </div>
-      <div class="edu-yr">2025 — 2027</div>
-    </div>
-    <div class="card edu-c">
-      <div>
-        <div class="edu-deg">Bachelor of Computer Applications (BCA) — Data Science</div>
-        <div class="edu-sch">Shree Krishna Chaitanya Degree College, Nellore</div>
+    </section>
+
+    <!-- Project cards are generated from assets/js/projects.js by assets/js/script.js. -->
+    <section class="section projects" id="projects">
+      <div class="container">
+        <div class="section-intro split-heading reveal">
+          <div>
+            <p class="section-label">Project showcase</p>
+            <h2>Selected production work.</h2>
+          </div>
+          <p>Real platforms, internal systems, and independent products. Public work appears first.</p>
+        </div>
+
+        <div class="project-group reveal">
+          <div class="group-heading group-heading-copy">
+            <div>
+              <p class="group-kicker">My journey at M7 Corporation</p>
+              <h3>Production experience at M7 Corporation</h3>
+              <p>Features delivered across NGO, healthcare, workforce, AI, and business platforms.</p>
+            </div>
+            <span id="companyCount"></span>
+          </div>
+          <div class="project-grid" id="companyProjects"></div>
+        </div>
+
+        <div class="project-group personal-group reveal">
+          <div class="group-heading group-heading-copy">
+            <div>
+              <p class="group-kicker">Independent work</p>
+              <h3>Independent products</h3>
+              <p>Products designed and developed independently from architecture to delivery.</p>
+            </div>
+            <span id="personalCount"></span>
+          </div>
+          <div class="project-grid" id="personalProjects"></div>
+        </div>
       </div>
-      <div class="edu-yr">2022 — 2025</div>
+    </section>
+
+    <!-- Expertise: grouped technical capabilities and tools. -->
+    <section class="section expertise" id="expertise">
+      <div class="container">
+        <div class="section-intro split-heading reveal">
+          <div>
+            <p class="section-label">Core skills</p>
+            <h2>Production backend development.</h2>
+          </div>
+          <p>From database design and API development to deployment and production support.</p>
+        </div>
+
+        <div class="skills-list reveal">
+          <article class="skill-row">
+            <h3>Backend</h3>
+            <p>Python, Django, Django REST Framework, REST APIs, Celery</p>
+          </article>
+          <article class="skill-row">
+            <h3>Data & security</h3>
+            <p>PostgreSQL, Redis, JWT, session authentication, RBAC</p>
+          </article>
+          <article class="skill-row">
+            <h3>Automation</h3>
+            <p>Excel workflows, PDF generation, email campaigns, integrations</p>
+          </article>
+          <article class="skill-row">
+            <h3>Deployment</h3>
+            <p>Linux, Docker, Nginx, Gunicorn, AWS, production support</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience: professional timeline and responsibilities. -->
+    <section class="section experience" id="experience">
+      <div class="container">
+        <div class="section-intro reveal">
+          <p class="section-label">Experience</p>
+          <h2>Professional experience.</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-meta"><span>Jul 2025 - Present</span><span>Chennai, India</span></div>
+            <div class="timeline-body">
+              <p class="company">M7 Corporation</p>
+              <h3>Python Django Developer</h3>
+              <p>Developing production Django platforms, secure REST APIs, automation workflows, and optimized PostgreSQL systems across multiple business domains.</p>
+              <ul>
+                <li>13+ production projects and 500+ delivered tasks</li>
+                <li>JWT, session authentication, RBAC, PDF and Excel workflows</li>
+                <li>Linux, Gunicorn and Nginx production deployment</li>
+              </ul>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-meta"><span>Jun 2024 - Aug 2024</span><span>Rajahmundry, India</span></div>
+            <div class="timeline-body">
+              <p class="company">Amaravathi Software Innovations Pvt. Ltd.</p>
+              <h3>Assistant Software Developer Intern</h3>
+              <p>Completed a 120-hour APSCHE-supported internship and built foundational front-end components using HTML and CSS.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Credentials: education and certification records. -->
+    <section class="section credentials" id="credentials">
+      <div class="container credentials-grid">
+        <div class="credentials-column reveal">
+          <p class="section-label">Education</p>
+          <h2>Education</h2>
+          <article class="credential-card">
+            <span>2025 - Expected 2027</span>
+            <h3>Master of Computer Applications</h3>
+            <p>Shree Krishna Chaitanya Institute of Science & Technology, Nellore</p>
+          </article>
+          <article class="credential-card">
+            <span>2022 - 2025</span>
+            <h3>Bachelor of Computer Applications</h3>
+            <p>Shree Krishna Chaitanya Degree College, Nellore</p>
+          </article>
+        </div>
+
+        <div class="credentials-column reveal">
+          <p class="section-label">Certifications</p>
+          <h2>Certifications</h2>
+          <article class="credential-card">
+            <span>June 2025 / Grade B</span>
+            <h3>Certified Web Developer</h3>
+            <p>NIELIT, Government of India</p>
+          </article>
+          <article class="credential-card">
+            <span>November 2024</span>
+            <h3>Python Full-Stack Workshop</h3>
+            <p>Think Champ (AICTE Recognized)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact: email actions and public profile links. -->
+    <section class="section contact" id="contact">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="container contact-inner reveal">
+        <p class="section-label">Contact</p>
+        <h2>Let&apos;s build something reliable.</h2>
+        <p>Open to Python Developer, Django Developer, and Backend Engineer roles with engineering-focused teams.</p>
+        <div class="contact-actions">
+          <div class="email-action">
+            <a class="button button-primary" href="mailto:saikumar.pydev@gmail.com">saikumar.pydev@gmail.com</a>
+            <button class="email-copy" id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
+          </div>
+          <a class="button button-secondary" href="tel:+919360650448" aria-label="Call Saikumar Mallarapu">Call me</a>
+        </div>
+        <div class="contact-links">
+          <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="me noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.04c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45Z"/></svg>
+            <span>LinkedIn &#8599;</span>
+          </a>
+          <a href="https://github.com/saikumarmallarapu" target="_blank" rel="me noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7A11.5 11.5 0 0 0 8.4 23c.6.1.8-.3.8-.6v-2.2c-3.4.7-4.1-1.4-4.1-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .7Z"/></svg>
+            <span>GitHub &#8599;</span>
+          </a>
+          <a href="https://saipoojasolutions.in" target="_blank" rel="noopener noreferrer">
+            <svg class="website-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17M12 3c2.4 2.5 3.6 5.5 3.6 9S14.4 18.5 12 21M12 3C9.6 5.5 8.4 8.5 8.4 12S9.6 18.5 12 21"/></svg>
+            <span>Saipooja &#8599;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer: copyright year is filled automatically by script.js. -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="currentYear"></span> Saikumar Mallarapu</p>
+      <p>Designed and built with purpose.</p>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- CONTACT -->
-<section class="sec fade" id="contact">
-  <div class="card contact-box">
-    <div class="sec-tag" style="text-align:center;margin-bottom:10px">Contact</div>
-    <div class="c-h">Let's build something together</div>
-    <div class="c-sub">Open to Python Developer, Django Developer, Backend Engineer, and Django REST Framework Developer roles.<br>Available for full-time positions and freelance projects.</div>
-    <button class="copy-btn" onclick="copyEmail()">📋 Copy Email</button>
-    <div class="c-btns">
-      <a href="mailto:saikumar.pydev@gmail.com" class="c-btn p">Email Me</a>
-      <a href="https://linkedin.com/in/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="c-btn">LinkedIn</a> 
-      <a href="https://saipoojasolutions.in" target="_blank" rel="noopener noreferrer" class="c-btn">Saipooja Software Solutions</a>
-      <a href="https://github.com/saikumarmallarapu" target="_blank" rel="noopener noreferrer" class="c-btn">GitHub</a>
-      <a href="https://www.instagram.com/saikumar.mallarapu/" target="_blank" rel="noopener noreferrer" class="c-btn">Instagram</a>
-      <a href="https://x.com/saikumarpydev" target="_blank" rel="noopener noreferrer" class="c-btn">Twitter/X</a>
-      <a href="https://youtube.com/@saipoojasoftwaresolutions" target="_blank" rel="noopener noreferrer" class="c-btn">YouTube</a>
-      <a href="https://www.facebook.com/saipoojasoftwaresolutions" target="_blank" rel="noopener noreferrer" class="c-btn">Facebook</a>
-      <a href="https://medium.com/@saipoojasoftwaresolutions" target="_blank" rel="noopener noreferrer" class="c-btn">Medium</a>
-    </div>
-    <div class="locs">
-      <span class="loc">Hyderabad</span>
-      <span class="loc">Chennai</span>
-      <span class="loc">Bengaluru</span>
-      <span class="loc">Remote</span>
-    </div>
-  </div>
-</section>
-
-</div>
-  
-<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
-<div class="copy-toast" id="copyToast">Email copied!</div>
-<footer>
-  <span id="footerYear"></span> Saikumar Mallarapu &nbsp;&middot;&nbsp; Python Django Developer &nbsp;&middot;&nbsp; Designed, Developed & Maintained by Saikumar Mallarapu
-</footer>
-
-<!-- ══ RESUME MODAL ══ -->
-<div id="resumeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="modalTitle">My Resume</h3>
-      <button class="close-btn" id="closeBtn" onclick="closeResume()" aria-label="Close resume modal">&times;</button>
-    </div>
-    <iframe
-    id="resumeFrame"
-    src=""
-    loading="lazy"
-    class="resume-frame"
-    title="Saikumar Mallarapu Resume PDF">
-    </iframe>
-    <a href="Saikumar_Mallarapu_Django_Developer.pdf" download class="download-btn">⬇ Download Resume</a>
-  </div>
-</div>
-
-<script>
-  /* ── Footer year ── */
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
-
-  /* ── DARK MODE ── */
-  var dmBtn = document.getElementById('dmBtn');
-  var isDark = localStorage.getItem('dark') === '1';
-  if(isDark){document.body.classList.add('dark');dmBtn.textContent='☀️'}
-  dmBtn.addEventListener('click',function(){
-    document.body.classList.toggle('dark');
-    isDark = document.body.classList.contains('dark');
-    localStorage.setItem('dark', isDark ? '1' : '0');
-    dmBtn.textContent = isDark ? '☀️' : '🌙';
-  });
-
-  /* ── BACK TO TOP ── */
-  var btt = document.getElementById('btt');
-  window.addEventListener('scroll',function(){
-    btt.classList.toggle('show', window.scrollY > 400);
-  });
-
-  /* ── ACTIVE NAV ── */
-  var sections = document.querySelectorAll('section[id]');
-  var navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll',function(){
-    var pos = window.scrollY + 80;
-    sections.forEach(function(s){
-      if(pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight){
-        navLinks.forEach(function(a){
-          a.classList.toggle('active', a.getAttribute('href')==='#'+s.id);
-        });
-      }
-    });
-  });
-
-  /* ── COPY EMAIL ── */
-  function copyEmail(){
-    navigator.clipboard.writeText('saikumar.pydev@gmail.com').then(function(){
-      var t = document.getElementById('copyToast');
-      t.classList.add('show');
-      setTimeout(function(){t.classList.remove('show')},2000);
-    });
-  }
-
-  /* ══ RESUME MODAL ══ */
-  var resumeLoaded = false;
-  var lastFocused  = null;
-  function openResume() {
-    lastFocused = document.activeElement;
-    if (!resumeLoaded) {
-      document.getElementById('resumeFrame').src = 'Saikumar_Mallarapu_Django_Developer.pdf';
-      resumeLoaded = true;
-    }
-    var modal = document.getElementById('resumeModal');
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    document.getElementById('closeBtn').focus();
-  }
-  function closeResume() {
-    document.getElementById('resumeModal').classList.remove('open');
-    document.body.style.overflow = '';
-    if (lastFocused) lastFocused.focus();
-  }
-  document.getElementById('resumeModal').addEventListener('click', function(e) {
-    if (e.target === this) closeResume();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('resumeModal').classList.contains('open')) {
-      closeResume();
-    }
-  });
-
-  /* ══ HAMBURGER / MOBILE MENU ══ */
-  var hamburger   = document.getElementById('hamburger');
-  var mobileMenu  = document.getElementById('mobileMenu');
-  var overlay     = document.getElementById('mobileOverlay');
-  hamburger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    var isOpen = mobileMenu.classList.contains('open');
-    if (isOpen) { closeMobileMenu(); } else { openMobileMenu(); }
-  });
-  function openMobileMenu() {
-    mobileMenu.classList.add('open');
-    overlay.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-  }
-  function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    overlay.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  }
-
-  /* ── Scroll animations ── */
-  var obs = new IntersectionObserver(function(els) {
-    els.forEach(function(e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-    });
-  }, { threshold: .12 });
-  document.querySelectorAll('.fade').forEach(function(el) { obs.observe(el); });
-</script>
+  <!-- Load project data first; script.js then renders and controls the page. -->
+  <script src="assets/js/projects.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
