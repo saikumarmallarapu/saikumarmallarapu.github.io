@@ -642,7 +642,7 @@ button { font: inherit; }
   .portrait-wrap { width: min(210px, 58vw); }
   .portrait-frame { border-radius: 20px; }
 
-  .section { padding: 56px 0; }
+  .section { padding: 48px 0; }
   .section-intro { margin-bottom: 26px; }
   .section h2 { font-size: 32px; line-height: 1.1; }
   .split-heading > p { font-size: 15px; }
@@ -664,6 +664,10 @@ button { font: inherit; }
   .contact-inner h2 { font-size: 36px; line-height: 1.1; }
   .contact-links { flex-wrap: wrap; gap: 18px; }
   .site-footer .container { flex-direction: column; gap: 2px; }
+
+  /* Avoid doubled whitespace where the experience and education sections meet. */
+  .experience { padding-bottom: 24px; }
+  .credentials { padding-top: 34px; }
 
   /* Never let an optional entrance animation hide mobile content permanently. */
   .reveal { opacity: 1; transform: none; }
