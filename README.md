@@ -2,8 +2,6 @@
 
 Python Django Developer with 1 year and 2 months of production experience building secure web applications, REST APIs, PostgreSQL systems, automation workflows, and internal business tools.
 
-<img src="assets/images/opentowork/opentowork.avif" width="72" alt="Open to work badge">
-
 > Currently looking for a full-time Python or Django backend role with a strong engineering team.
 
 [View Portfolio](https://saikumarmallarapu.github.io) | [LinkedIn](https://linkedin.com/in/saikumarmallarapu) | [GitHub](https://github.com/saikumarmallarapu) | [Email](mailto:saikumar.pydev@gmail.com) | [Resume](assets/documents/saikumar_mallarapu_python_developer.pdf)

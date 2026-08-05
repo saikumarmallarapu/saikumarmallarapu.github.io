@@ -245,6 +245,14 @@ button { font: inherit; }
   line-height: 1.75;
 }
 
+.job-search-note {
+  max-width: 690px;
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .hero-actions,
 .contact-actions {
   display: flex;
