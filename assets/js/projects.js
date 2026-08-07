@@ -153,17 +153,17 @@ window.portfolioProjects = [
   },
   {
     name: "Charles and Chandrasekar LLP",
-    subtitle: "Chartered Accountancy, Auditing Website & Management Dashboard",
+    subtitle: "Chartered Accountancy Website & Dashboard",
     category: "company",
     url: "https://cncllp.in/",
     images: [
         "assets/images/projects/cncllp/cncllp.webp",
         "assets/images/projects/cncllp/cncllp2page.webp",
-        "assets/images/projects/cncllp/cncllp3page.webp", 
+        "assets/images/projects/cncllp/cncllp3page.webp",
         "assets/images/projects/cncllp/cncllp4page.webp"
     ],
-    summary: "A professional website and internal management dashboard for a chartered accountancy and auditing firm. The platform presents financial audit, compliance audit, forensic audit, risk assessment, internal control, and operational audit services while supporting enquiries, staff access, payments, and administrative workflows.",
-    contribution: "Worked on the public website and internal dashboard by updating audit service content, partner and professional profiles, images, responsive layouts, contact sections, and direct profile navigation. Also handled staff authentication, enquiry management, Razorpay and other payment gateway modules, access control, database migrations, dashboard workflows, and production issue resolution.",
+    summary: "A chartered accountancy platform presenting audit services, professional profiles, enquiries, payments, and administrative workflows.",
+    contribution: "Updated the website and dashboard, improved service content, professional profiles, responsive layouts, staff access, enquiries, and payment workflows.",
     tech: ["Python", "Django", "SQLite", "JavaScript", "Bootstrap", "Razorpay"],
     accent: "blue"
   },
