@@ -43,9 +43,18 @@
       ? '<div class="project-gallery"><div class="project-gallery-track">' + gallerySlides + '</div>' + galleryControls + '</div>'
       : "";
 
+    var desktopProjects = [
+      "TCP File Transfer & Remote Access",
+      "Email Campaign Bot"
+    ];
+    
+    var privateLabel = desktopProjects.includes(project.name)
+      ? "DESKTOP APPLICATION"
+      : "PRIVATE PROJECT";
+    
     var action = safeUrl
       ? '<a class="project-link" href="' + escapeHtml(safeUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="Visit ' + escapeHtml(project.name) + '">Live website &#8599;</a>'
-      : '<span class="private-label">Private project</span>';
+      : '<span class="private-label">' + privateLabel + '</span>';
     var projectType = project.category === "company" ? "M7 experience" : "Independent build";
 
     return [
@@ -172,7 +181,7 @@
   function applyTheme(theme) {
     var isDark = theme === "dark";
     document.documentElement.dataset.theme = isDark ? "dark" : "light";
-    themeIcon.textContent = isDark ? "\u2600" : "\u263E";
+    themeIcon.textContent = isDark ? "\u2600" : "\u263C";
     themeLabel.textContent = isDark ? "Light" : "Dark";
     themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
     themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
