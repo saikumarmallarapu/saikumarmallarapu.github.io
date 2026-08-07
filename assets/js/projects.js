@@ -151,6 +151,22 @@ window.portfolioProjects = [
     tech: ["Python", "Django", "AI Integration"],
     accent: "blue"
   },
+  {
+    name: "Charles and Chandrasekar LLP",
+    subtitle: "Chartered Accountancy, Auditing Website & Management Dashboard",
+    category: "company",
+    url: "https://cncllp.in/",
+    images: [
+        "assets/images/projects/cncllp/cncllp.webp",
+        "assets/images/projects/cncllp/cncllp2page.webp",
+        "assets/images/projects/cncllp/cncllp3page.webp", 
+        "assets/images/projects/cncllp/cncllp4page.webp"
+    ],
+    summary: "A professional website and internal management dashboard for a chartered accountancy and auditing firm. The platform presents financial audit, compliance audit, forensic audit, risk assessment, internal control, and operational audit services while supporting enquiries, staff access, payments, and administrative workflows.",
+    contribution: "Worked on the public website and internal dashboard by updating audit service content, partner and professional profiles, images, responsive layouts, contact sections, and direct profile navigation. Also handled staff authentication, enquiry management, Razorpay and other payment gateway modules, access control, database migrations, dashboard workflows, and production issue resolution.",
+    tech: ["Python", "Django", "SQLite", "JavaScript", "Bootstrap", "Razorpay"],
+    accent: "blue"
+  },
   // Independent and personal products
   {
     name: "Balaram Child Neuro Care",
