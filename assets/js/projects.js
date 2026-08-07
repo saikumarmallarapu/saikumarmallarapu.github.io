@@ -127,7 +127,7 @@ window.portfolioProjects = [
     subtitle: "Lead Generation & Outreach Automation",
     category: "company",
     url: "",
-    images: ["assets/images/projects/campaignbot/ebot.webp", 
+    images: ["assets/images/projects/campaignbot/bot.webp", 
              "assets/images/projects/campaignbot/bot2page.webp",
              "assets/images/projects/campaignbot/bot3page.webp",
              "assets/images/projects/campaignbot/bot4page.webp"],
