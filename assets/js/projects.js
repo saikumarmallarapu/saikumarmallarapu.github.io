@@ -101,17 +101,17 @@ window.portfolioProjects = [
     tech: ["Django", "PostgreSQL"],
     accent: "orange"
   },
-  {
-    name: "Stock Portal",
-    subtitle: "Grocery, Gadgets & POS Platform",
-    category: "company",
-    url: "https://stock.m7.digital/",
-    images: ["assets/images/projects/stock/stock.webp"],
-    summary: "A multi-store commerce and POS system covering inventory, purchasing, suppliers, billing, and customer management.",
-    contribution: "Built store workflows, barcode billing, hold/unhold sales, supplier management, Excel flows, WhatsApp billing, and Quick Print.",
-    tech: ["Django", "PostgreSQL", "POS", "Barcode"],
-    accent: "green"
-  },
+  // {
+  //   name: "Stock Portal",
+  //   subtitle: "Grocery, Gadgets & POS Platform",
+  //   category: "company",
+  //   url: "https://stock.m7.digital/",
+  //   images: ["assets/images/projects/stock/stock.webp"],
+  //   summary: "A multi-store commerce and POS system covering inventory, purchasing, suppliers, billing, and customer management.",
+  //   contribution: "Built store workflows, barcode billing, hold/unhold sales, supplier management, Excel flows, WhatsApp billing, and Quick Print.",
+  //   tech: ["Django", "PostgreSQL", "POS", "Barcode"],
+  //   accent: "green"
+  // },
   // {
   //   name: "Bharath Medical College and Hospital",
   //   subtitle: "Hospital Web Platform",
