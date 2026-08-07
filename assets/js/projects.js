@@ -111,16 +111,16 @@ window.portfolioProjects = [
     tech: ["Django", "PostgreSQL", "POS", "Barcode"],
     accent: "green"
   },
-  {
-    name: "Bharath Medical College and Hospital",
-    subtitle: "Hospital Web Platform",
-    category: "company",
-    url: "https://bharathmedicalcollege.com/",
-    summary: "A hospital platform for doctors, departments, clinical services, appointments, events, and public content.",
-    contribution: "Built core pages and management workflows, mapped doctors to services, added appointments, validated content, and deployed updates.",
-    tech: ["Django", "PostgreSQL", "Healthcare"],
-    accent: "blue"
-  },
+  // {
+  //   name: "Bharath Medical College and Hospital",
+  //   subtitle: "Hospital Web Platform",
+  //   category: "company",
+  //   url: "https://bharathmedicalcollege.com/",
+  //   summary: "A hospital platform for doctors, departments, clinical services, appointments, events, and public content.",
+  //   contribution: "Built core pages and management workflows, mapped doctors to services, added appointments, validated content, and deployed updates.",
+  //   tech: ["Django", "PostgreSQL", "Healthcare"],
+  //   accent: "blue"
+  // },
   {
     name: "Email Campaign Bot",
     subtitle: "Lead Generation & Outreach Automation",
