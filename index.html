@@ -340,6 +340,64 @@
     </section>
   </main>
 
+  <!-- Portfolio Assistant -->
+  <div class="portfolio-assistant" id="portfolioAssistant">
+  
+    <button
+      class="assistant-launcher"
+      id="assistantLauncher"
+      type="button"
+      aria-label="Open portfolio assistant"
+    >
+      Ask a question...
+      <span>↑</span>
+    </button>
+  
+    <aside class="assistant-panel" id="assistantPanel" aria-hidden="true">
+  
+      <div class="assistant-header">
+        <h3>Portfolio Assistant</h3>
+  
+        <button
+          class="assistant-close"
+          id="assistantClose"
+          type="button"
+          aria-label="Close assistant"
+        >
+          ×
+        </button>
+      </div>
+  
+      <div class="assistant-messages" id="assistantMessages">
+        <div class="assistant-message bot">
+          Hi! I am Saikumar's Portfolio Assistant. What would you like to know?
+        </div>
+        
+        <div class="assistant-suggestions">
+          <button type="button" data-question="Who is Saikumar?">About</button>
+          <button type="button" data-question="What are his skills?">Skills</button>
+          <button type="button" data-question="Show me his projects">Projects</button>
+          <button type="button" data-question="How can I contact him?">Contact</button>
+        </div>
+      </div>
+  
+      <form class="assistant-form" id="assistantForm">
+        <input
+          type="text"
+          id="assistantInput"
+          placeholder="Ask about this portfolio..."
+          autocomplete="off"
+        >
+  
+        <button type="submit" aria-label="Send question">
+          ↑
+        </button>
+      </form>
+  
+    </aside>
+  
+  </div>
+  
   <!-- Footer: copyright year is filled automatically by script.js. -->
   <footer class="site-footer">
     <div class="container">

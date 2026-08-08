@@ -299,5 +299,290 @@
   });
 
   // Keep the footer year current without manual editing.
-  document.getElementById("currentYear").textContent = new Date().getFullYear();
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+
+/* =========================================================
+   PORTFOLIO ASSISTANT
+========================================================= */
+
+var assistantLauncher = document.getElementById("assistantLauncher");
+var assistantPanel = document.getElementById("assistantPanel");
+var assistantClose = document.getElementById("assistantClose");
+var assistantForm = document.getElementById("assistantForm");
+var assistantInput = document.getElementById("assistantInput");
+var assistantMessages = document.getElementById("assistantMessages");
+
+
+function openAssistant() {
+  assistantPanel.classList.add("open");
+  assistantPanel.setAttribute("aria-hidden", "false");
+  assistantInput.focus();
+}
+
+
+function closeAssistant() {
+  assistantPanel.classList.remove("open");
+  assistantPanel.setAttribute("aria-hidden", "true");
+}
+
+
+function addAssistantMessage(message, type) {
+  var messageElement = document.createElement("div");
+
+  messageElement.className = "assistant-message " + type;
+  messageElement.textContent = message;
+
+  assistantMessages.appendChild(messageElement);
+  assistantMessages.scrollTop = assistantMessages.scrollHeight;
+}
+
+
+function getProjectAnswer() {
+  if (!projects.length) {
+    return "Project information is currently unavailable.";
+  }
+
+  var featuredProjects = projects.slice(0, 5);
+
+  var projectList = featuredProjects.map(function (project) {
+    return "• " + project.name + "\n  " + project.subtitle;
+  }).join("\n\n");
+
+  return (
+    "Featured projects:\n\n" +
+    projectList +
+    "\n\nUse the Projects section to view all projects."
+  );
+}
+
+
+function getPortfolioAnswer(question) {
+  var query = question.toLowerCase().trim();
+
+  if (
+    query.includes("who is") ||
+    query.includes("who are") ||
+    query.includes("about him") ||
+    query.includes("know him") ||
+    query.includes("saikumar")
+  ) {
+    return (
+      "Saikumar Mallarapu is a Python Django Developer with " +
+      "production experience in Django applications, REST APIs, " +
+      "PostgreSQL systems, automation workflows, and backend development."
+    );
+  }
+
+  if (
+    query.includes("skill") ||
+    query.includes("technology") ||
+    query.includes("tech stack") ||
+    query.includes("what he knows")
+  ) {
+    return (
+      "Main skills:\n" +
+      "• Python\n" +
+      "• Django\n" +
+      "• Django REST Framework\n" +
+      "• PostgreSQL\n" +
+      "• REST APIs\n" +
+      "• Redis and Celery\n" +
+      "• Docker, Linux, Nginx, Gunicorn, and AWS"
+    );
+  }
+
+  if (
+    query.includes("experience") ||
+    query.includes("where he works") ||
+    query.includes("where is he working") ||
+    query.includes("working company") ||
+    query.includes("company") ||
+    query.includes("job")
+  ) {
+    return (
+      "Saikumar works as a Python Django Developer at M7 Corporation " +
+      "in Chennai, India."
+    );
+  }
+
+  if (
+    query.includes("location") ||
+    query.includes("where is he") ||
+    query.includes("city") ||
+    query.includes("place")
+  ) {
+    return "His current work location is Chennai, India.";
+  }
+
+  var cleanedProjectQuery = query
+  .replace("project", "")
+  .replace("details", "")
+  .trim();
+
+  var matchedProject = projects.find(function (project) {
+    var projectName = project.name.toLowerCase();
+    var projectSubtitle = project.subtitle.toLowerCase();
+
+    return (
+      projectName.includes(cleanedProjectQuery) ||
+      projectSubtitle.includes(cleanedProjectQuery)
+    );
+  });
+
+  if (cleanedProjectQuery && matchedProject) {
+    return (
+      matchedProject.name + "\n\n" +
+      matchedProject.subtitle + "\n\n" +
+      matchedProject.summary + "\n\n" +
+      "My contribution:\n" +
+      matchedProject.contribution + "\n\n" +
+      "Technologies:\n" +
+      matchedProject.tech.join(", ")
+    );
+  }
+
+  if (
+    query.includes("project") ||
+    query.includes("portfolio") ||
+    query.includes("what he built")
+  ) {
+    return getProjectAnswer();
+  }
+
+  if (
+    query.includes("education") ||
+    query.includes("degree") ||
+    query.includes("study") ||
+    query.includes("qualification")
+  ) {
+    return (
+      "Education:\n" +
+      "• Master of Computer Applications\n" +
+      "• Bachelor of Computer Applications"
+    );
+  }
+
+  if (
+    query.includes("mobile") ||
+    query.includes("phone") ||
+    query.includes("number") ||
+    query.includes("call")
+  ) {
+    return "His phone number is +91 9360650448.";
+  }
+
+  if (
+    query.includes("email") ||
+    query.includes("mail")
+  ) {
+    return "His email address is saikumar.pydev@gmail.com.";
+  }
+
+  if (
+    query.includes("contact") ||
+    query.includes("reach")
+  ) {
+    return (
+      "Contact details:\n" +
+      "Email: saikumar.pydev@gmail.com\n" +
+      "Phone: +91 9360650448"
+    );
+  }
+
+  if (
+    query.includes("resume") ||
+    query.includes("cv")
+  ) {
+    return (
+      "You can open his resume using the Resume button " +
+      "in the portfolio header."
+    );
+  }
+
+  return (
+    "Please ask about Saikumar's profile, skills, projects, experience, " +
+    "education, location, resume, email, or phone number."
+  );
+}
+
+
+assistantLauncher.addEventListener("click", openAssistant);
+assistantClose.addEventListener("click", closeAssistant);
+
+
+function showTyping() {
+  var typing = document.createElement("div");
+
+  typing.className = "assistant-typing";
+  typing.id = "assistantTyping";
+  typing.innerHTML = "<span></span><span></span><span></span>";
+
+  assistantMessages.appendChild(typing);
+  assistantMessages.scrollTop = assistantMessages.scrollHeight;
+}
+
+function hideTyping() {
+  var typing = document.getElementById("assistantTyping");
+
+  if (typing) {
+    typing.remove();
+  }
+}
+
+function handleAssistantQuestion(question) {
+  if (!question) {
+    return;
+  }
+
+  addAssistantMessage(question, "user");
+  showTyping();
+
+  var answer = getPortfolioAnswer(question);
+
+  window.setTimeout(function () {
+    hideTyping();
+    addAssistantMessage(answer, "bot");
+    showAssistantSuggestions();
+  }, 700);
+}
+
+assistantForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  var question = assistantInput.value.trim();
+
+  assistantInput.value = "";
+  handleAssistantQuestion(question);
+});
+
+document.querySelectorAll("[data-question]").forEach(function (button) {
+  button.addEventListener("click", function () {
+    handleAssistantQuestion(button.dataset.question);
+  });
+});
+function showAssistantSuggestions() {
+  var suggestions = document.createElement("div");
+
+  suggestions.className = "assistant-suggestions";
+
+  suggestions.innerHTML = `
+    <button type="button" data-question="Who is Saikumar?">About</button>
+    <button type="button" data-question="What are his skills?">Skills</button>
+    <button type="button" data-question="Show me his projects">Projects</button>
+    <button type="button" data-question="How can I contact him?">Contact</button>
+  `;
+
+  assistantMessages.appendChild(suggestions);
+
+  suggestions.querySelectorAll("[data-question]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      suggestions.remove();
+      handleAssistantQuestion(button.dataset.question);
+    });
+  });
+
+  assistantMessages.scrollTop = assistantMessages.scrollHeight;
+}
+
 }());
